@@ -1,0 +1,176 @@
+{
+  "sources": {
+    "raw/Contingent value rights.md": {
+      "note": "wiki/Articles/Contingent Value Rights.md",
+      "title": "Contingent Value Rights",
+      "sha256": "1491a17549882a5943ff05a47862dfae2ae09d896225c7e214a6d14cc3b05431",
+      "ingested_at": "2026-09-28T22:22:47",
+      "model": "mlx-community/gemma-4-e2b-it-4bit@2387675",
+      "topics": [
+        {
+          "title": "hedge funds",
+          "kind": "organization",
+          "why": "They occasionally acquire or short Contingent Value Rights"
+        },
+        {
+          "title": "biotech and pharmaceutical industries",
+          "kind": "organization",
+          "why": "Contingent Value Rights are common in these sectors"
+        },
+        {
+          "title": "Media General Nexstar Media Group",
+          "kind": "organization",
+          "why": "Used as an example of where CVRs are granted"
+        },
+        {
+          "title": "option",
+          "kind": "concept",
+          "why": "The CVR is in function as a form of option"
+        },
+        {
+          "title": "call option",
+          "kind": "concept",
+          "why": "The payout to the CVR holder is triggered by an event occurring, and will be zero otherwise"
+        }
+      ],
+      "reviewed": false
+    },
+    "raw/FIFO and LIFO accounting.md": {
+      "note": "wiki/Articles/FIFO and LIFO Accounting.md",
+      "title": "FIFO and LIFO Accounting",
+      "sha256": "e350e05d1cb25cd15c25f29cf1b565691a077a2ee5f44e333698aa60f535caf9",
+      "ingested_at": "2026-09-28T22:22:47",
+      "model": "mlx-community/gemma-4-e2b-it-4bit@2387675",
+      "topics": [
+        {
+          "title": "Internal Revenue Code",
+          "kind": "organization",
+          "why": "Directs how LIFO may be used if the taxpayer establishes no other way to value inventory"
+        },
+        {
+          "title": "Save LIFO Coalition",
+          "kind": "organization",
+          "why": "Argues in favor of the retention of the LIFO method"
+        },
+        {
+          "title": "International Financial Reporting Standards",
+          "kind": "organization",
+          "why": "Banned the use of LIFO in certain contexts"
+        },
+        {
+          "title": "Cost of Goods Sold",
+          "kind": "concept",
+          "why": "Used to calculate the total cost of sales for a given period under different methods"
+        },
+        {
+          "title": "LIFO Reserve",
+          "kind": "concept",
+          "why": "Represents the difference between FIFO and LIFO inventory costs, deferring taxable income"
+        }
+      ],
+      "reviewed": false
+    },
+    "raw/Goodwill (accounting).md": {
+      "note": "wiki/Articles/Goodwill Accounting.md",
+      "title": "Goodwill Accounting",
+      "sha256": "dcee2e20d85c862f760c0c48aa252588b02ada6b4d9b27b003b4ccf7c84f9232",
+      "ingested_at": "2026-09-28T22:22:47",
+      "model": "mlx-community/gemma-4-e2b-it-4bit@2387675",
+      "topics": [
+        {
+          "title": "FASB",
+          "kind": "organization",
+          "why": "They removed the option to use pooling-of-interests method for goodwill amortization"
+        },
+        {
+          "title": "Private Company Council of the FASB",
+          "kind": "organization",
+          "why": "They established an accounting alternative for amortizing goodwill in private companies"
+        },
+        {
+          "title": "International Financial Reporting Standards",
+          "kind": "organization",
+          "why": "They forbid the amortization of goodwill as of 2005-01-01"
+        },
+        {
+          "title": "Intangible Asset",
+          "kind": "concept",
+          "why": "Goodwill is classified as an intangible asset on the balance sheet"
+        },
+        {
+          "title": "Acquisition Premium",
+          "kind": "concept",
+          "why": "Goodwill represents the premium the buyer pays over the net value of other assets"
+        },
+        {
+          "title": "Impairment Testing",
+          "kind": "concept",
+          "why": "Management must determine if an impairment is required when fair market value falls below historical cost"
+        }
+      ],
+      "reviewed": false
+    }
+  },
+  "topics": {
+    "hedge funds": {
+      "kind": "organization",
+      "aliases": []
+    },
+    "biotech and pharmaceutical industries": {
+      "kind": "organization",
+      "aliases": []
+    },
+    "Media General Nexstar Media Group": {
+      "kind": "organization",
+      "aliases": []
+    },
+    "option": {
+      "kind": "concept",
+      "aliases": []
+    },
+    "call option": {
+      "kind": "concept",
+      "aliases": []
+    },
+    "Internal Revenue Code": {
+      "kind": "organization",
+      "aliases": []
+    },
+    "Save LIFO Coalition": {
+      "kind": "organization",
+      "aliases": []
+    },
+    "International Financial Reporting Standards": {
+      "kind": "organization",
+      "aliases": []
+    },
+    "Cost of Goods Sold": {
+      "kind": "concept",
+      "aliases": []
+    },
+    "LIFO Reserve": {
+      "kind": "concept",
+      "aliases": []
+    },
+    "FASB": {
+      "kind": "organization",
+      "aliases": []
+    },
+    "Private Company Council of the FASB": {
+      "kind": "organization",
+      "aliases": []
+    },
+    "Intangible Asset": {
+      "kind": "concept",
+      "aliases": []
+    },
+    "Acquisition Premium": {
+      "kind": "concept",
+      "aliases": []
+    },
+    "Impairment Testing": {
+      "kind": "concept",
+      "aliases": []
+    }
+  }
+}
