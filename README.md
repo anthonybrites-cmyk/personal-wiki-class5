@@ -173,12 +173,13 @@ the embedding model, falling back to keywords only.
 | Generator | **Gemma 4 E2B-it**, `mlx-community/gemma-4-e2b-it-4bit` @ `2387675`, **4-bit affine quantization, group size 64**. 3.55 GB of weights. 35 layers, 262k vocabulary, 128k context (this harness sends at most ~4k tokens). |
 | Embeddings | `mlx-community/bge-small-en-v1.5-4bit` @ `6d66cdf` (384-dim, 19 MB) |
 | Decoding | ask/ingest: greedy (temperature 0), so the same evidence gives the same answer. Chat: temperature 0.7. |
+| Output limits | ask 350 tokens, chat 450, ingest 900. Ingest was raised from 700 after an earlier draft ran out of tokens before its topic lines. One reply in the [live chat](evidence/live-chat/README.md) hit the 450-token chat limit and was cut off. |
 
 **Why E2B at 4-bit.** On 16 GB of unified memory, E2B plus the runtime peaks at about
 4.4 GB (MLX's own counter) and about 5 GB for the whole process. That leaves roughly 11 GB
 for macOS, Obsidian, and the embeddings. E4B at 4-bit (~4.5 GB just to load, per the Gemma
-docs) would probably also fit, but it would roughly double the memory and download on a
-disk with ~15 GB free. The 26B MoE (~14.4 GB at Q4) does not fit alongside anything else
+docs, about 1.5× E2B's 2.9 GB) would probably also fit, but it needs more memory and a larger
+download on a disk with ~15 GB free, and it generates more slowly. The 26B MoE (~14.4 GB at Q4) does not fit alongside anything else
 on a 16 GB Mac. With the harness's checks, E2B handles all four tests (see below), so it is
 the smallest model that works for this wiki. I did not test E4B, so the quality difference
 is unmeasured. The [reflection](#reflection-one-real-failure-and-what-id-change) says
@@ -193,7 +194,7 @@ footprint" includes GPU memory, which max RSS does not):
 | `wiki ingest vault/raw --force` (3 articles) | 26.9 s | 6.30 GB | 3 Gemma calls, ~1k–3k prompt tokens each |
 | `wiki ask` (one RAG answer, including a ~3.5 s model load) | 6.8–8.3 s (4 tests) | 4.84–4.91 GB | ~1.5k–2k prompt tokens, ~65 tok/s generation |
 | `wiki search` (no model) | 1.50 s | 0.18 GB | BM25 + bge vectors |
-| `wiki chat` turn | 2–7 s per reply | MLX peak ~4.4 GB | model loaded once per session |
+| `wiki chat` turn | 2–9 s per reply | MLX peak ~4.4 GB | model loaded once per session |
 
 An early version of ingestion reached a **12.4 GB** peak footprint: MLX kept freed GPU
 buffers cached between calls. The harness now caps that cache at 1 GB and clears it after
@@ -425,10 +426,12 @@ starts a new `./wiki` process for each step.
   [`terminal.typescript`](evidence/offline/terminal.typescript) is the same session
   recorded by `script(1)`, with colours.
 - [`evidence/offline/runs/`](evidence/offline/runs/): every saved record from that run.
-- **Code version:** the offline run used commit `08eda47`. The only later commits improved
-  error handling (clearer missing-model messages, keyword-only search without embeddings,
-  failing fast on an empty persona or a missing path). After them I reran the four ask
-  tests and a search online, and got identical answers.
+- **Code version:** the offline run used commit `08eda47`. Later commits changed harness
+  code only for error handling: clearer missing-model messages, keyword-only search
+  without embeddings, and failing fast on an empty persona or a missing path. After those
+  changes I reran the four ask tests and a search online, and got identical answers. The
+  other later commits only added evidence (setup check, error handling, live chat) or
+  redacted my Mac username from the transcripts.
 - **Chat input:** in the offline run, chat's messages were piped in by the script
   (`printf '…' | ./wiki chat`) so the run is reproducible.
 - **Live chat, typed by me, offline:** [`evidence/live-chat/`](evidence/live-chat/README.md)
@@ -450,6 +453,85 @@ the vault, so the harness never sees the answer key.
 | 2 reworded | Can a company count the customer loyalty it built up by itself as something it owns on its books? | No: goodwill arises only through an acquisition | ✓ "cannot be self-created" lead at S3, despite almost no shared words | "No, goodwill is recognized only through an acquisition [S3]" | ok | [test-2](evidence/ask/test-2.md) |
 | 3 two sources | What does goodwill represent in an acquisition, and which kind of contingent value right protects the buyer against overpaying? | premium over net assets; event-driven CVRs | ✓ both (goodwill lead S1, CVR Forms S2) | event-driven CVRs ✓; goodwill as "the firm's intrinsic ability to acquire and retain customer business" (true, from S1, but not the premium definition I expected) | ok | [test-3](evidence/ask/test-3.md) |
 | 4 unanswerable | What discount rate must companies use when testing goodwill for impairment? | insufficient evidence (no rate given) | impairment passages only; none gives a rate | **INSUFFICIENT EVIDENCE**, reported by the harness: Gemma's reply described fair-value testing but gave no rate | insufficient (value-question rule) | [test-4](evidence/ask/test-4.md) |
+
+
+Retrieved passages, answers, and whether the citations hold, per test (all from the offline run):
+
+<details><summary><b>Test 1</b>: In the Foo Co. example, what was the total cost of sales for November under FIFO?</summary>
+
+| | Retrieved passage (original text in the card) |
+|---|---|
+| S1 | `raw/Wikipedia - FIFO and LIFO accounting.md` § FIFO (lines 20–26) |
+| S2 | `raw/Wikipedia - FIFO and LIFO accounting.md` § LIFO (lines 38–44) |
+| S3 | `raw/Wikipedia - FIFO and LIFO accounting.md` § FIFO (lines 16–18) |
+| S4 | `raw/Wikipedia - Goodwill (accounting).md` § Calculating goodwill (lines 22–42) |
+| S5 | `raw/Wikipedia - Goodwill (accounting).md` § Modern meaning (lines 46–48) |
+| S6 | `raw/Wikipedia - Goodwill (accounting).md` § Goodwill (accounting) (lines 14–14) |
+
+**Answer:** Under FIFO, the total cost of sales for November would be $11,050 [S1].
+
+**Supported:** S1 states "Under FIFO, the total cost of sales for November would be $11,050" word for word. S2 (the $11,800 LIFO figure) was not confused with it.
+
+Full record: [test-1](evidence/ask/test-1.md)
+
+</details>
+
+<details><summary><b>Test 2</b>: Can a company count the customer loyalty it built up by itself as something it owns on its books?</summary>
+
+| | Retrieved passage (original text in the card) |
+|---|---|
+| S1 | `raw/Wikipedia - Goodwill (accounting).md` § History and purchase vs. pooling-of-interests (lines 60–60) |
+| S2 | `raw/Wikipedia - Goodwill (accounting).md` § Calculating goodwill (lines 22–42) |
+| S3 | `raw/Wikipedia - Goodwill (accounting).md` § Goodwill (accounting) (lines 12–12) |
+| S4 | `raw/Wikipedia - Contingent value rights.md` § Forms (lines 16–20) |
+| S5 | `raw/Wikipedia - FIFO and LIFO accounting.md` § LIFO (lines 34–36) |
+| S6 | `raw/Wikipedia - Contingent value rights.md` § Forms (lines 22–24) |
+
+**Answer:** No, goodwill is recognized only through an acquisition [S3].
+
+**Supported:** S3 says goodwill "is recognized only through an acquisition; it cannot be self-created", which is a "no" to the question even though the question never uses those words.
+
+Full record: [test-2](evidence/ask/test-2.md)
+
+</details>
+
+<details><summary><b>Test 3</b>: What does goodwill represent in an acquisition, and which kind of contingent value right protects the buyer against overpaying?</summary>
+
+| | Retrieved passage (original text in the card) |
+|---|---|
+| S1 | `raw/Wikipedia - Goodwill (accounting).md` § Goodwill (accounting) (lines 12–12) |
+| S2 | `raw/Wikipedia - Contingent value rights.md` § Forms (lines 16–20) |
+| S3 | `raw/Wikipedia - Goodwill (accounting).md` § Modern meaning (lines 46–48) |
+| S4 | `raw/Wikipedia - Contingent value rights.md` § Forms (lines 22–24) |
+| S5 | `raw/Wikipedia - Contingent value rights.md` § Contingent value rights (lines 12–12) |
+| S6 | `raw/Wikipedia - Goodwill (accounting).md` § Controversy (lines 70–72) |
+
+**Answer:** Goodwill represents the firm's intrinsic ability to acquire and retain customer business [S1]. Event-driven Contingent Value Rights (CVRs) protect the acquirer against the valuation risk inherent in overpaying [S2].
+
+**Supported, less precise than expected:** S1 contains the "intrinsic ability to acquire and retain customer business" sentence. S2 contains "protecting the acquirer against the valuation risk inherent in overpaying". The more precise premium definition, also in S1, was not used.
+
+Full record: [test-3](evidence/ask/test-3.md)
+
+</details>
+
+<details><summary><b>Test 4</b>: What discount rate must companies use when testing goodwill for impairment?</summary>
+
+| | Retrieved passage (original text in the card) |
+|---|---|
+| S1 | `raw/Wikipedia - Goodwill (accounting).md` § Goodwill (accounting) (lines 14–14) |
+| S2 | `raw/Wikipedia - Goodwill (accounting).md` § Amortization and adjustments to carrying value (lines 66–66) |
+| S3 | `raw/Wikipedia - Goodwill (accounting).md` § Amortization and adjustments to carrying value (lines 64–64) |
+| S4 | `raw/Wikipedia - FIFO and LIFO accounting.md` § LIFO (lines 34–36) |
+| S5 | `raw/Wikipedia - FIFO and LIFO accounting.md` § LIFO (lines 46–46) |
+| S6 | `raw/Wikipedia - FIFO and LIFO accounting.md` § FIFO (lines 16–18) |
+
+**Answer:** INSUFFICIENT EVIDENCE (Gemma's reply: "Companies determine the fair value of reporting units using the present value of future cash flow to compare it to their carrying value [S2].")
+
+**Correct refusal, by the harness:** no retrieved passage gives a discount rate. S2 describes the fair-value test ("using the present value of future cash flow"), and S3 the end of goodwill amortization. Gemma's own reply (kept in the card) answered that related question; the value-question rule reported insufficient evidence instead.
+
+Full record: [test-4](evidence/ask/test-4.md)
+
+</details>
 
 **Result: all four pass.** Test 3 chose a different, still-correct sentence for goodwill. On test 4 it was the **harness**, not Gemma, that recognized the missing evidence (see the [reflection](#reflection-one-real-failure-and-what-id-change)). Each card has the expectation, every retrieved passage in full (the
 expected ones are marked), Gemma's verbatim answer, the automatic checks, timing and
