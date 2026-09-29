@@ -39,7 +39,7 @@ mkdir -p "$OUT/runs"
 # Record the whole run: script(1) shows it live and keeps a copy with colours.
 script -q "$OUT/terminal.typescript" env OUT="$OUT" ROOT="$ROOT" scripts/offline_steps.sh
 status=$?
-perl -pe 's/\e\[[0-9;?]*[A-Za-z]//g; s/\r(?!\n)/\n/g; s/\r//g; s/\x04|\x08//g; s/^\^D//' \
+perl -pe 's/\e\[[0-9;?]*[A-Za-z]//g; s/\r(?!\n)/\n/g; s/\r//g; s/\x04|\x08//g; s/^\^D//; s#/Users/[^/\s]+#/Users/<user>#g' \
   "$OUT/terminal.typescript" > "$OUT/transcript.txt"
 echo
 echo "Saved: $OUT/transcript.txt, $OUT/runs/, $OUT/reingest-check.md, $OUT/measurements.tsv"

@@ -45,5 +45,5 @@
 
 3 source(s): 3 processed, 0 unchanged · 0 topic note(s) written · index 61 passages · 26.6s · model load 3.5s
   dropped from wiki/Articles/Contingent Value Rights.md: 'FASB' — the source never names it
-saved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ingest/20260928-224031-report.md
+saved /Users/<user>/code/personal-wiki-class5/evidence/offline/runs/ingest/20260928-224031-report.md
 ```

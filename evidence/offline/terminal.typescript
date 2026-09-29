@@ -78,16 +78,16 @@ local Hugging Face cache (see README → Setup). Nothing is fetched at run time.
 [1;36m$ ./wiki status[0m
 [2m── [0m[1mwiki status[0m[2m ───────────────────────────────────────────────────────────────[0m
 model       mlx-community/gemma-4-e2b-it-4bit @ 2387675  (Gemma 4 E2B-it · 4-bit MLX)
-            cached ✓  /Users/anthonybrites/.cache/huggingface/hub/models--mlx-community--gemma-4-e2b-it-4bit/snapshots/238767527555cb75a05732a84dff5d6ba0dd6809
+            cached ✓  /Users/<user>/.cache/huggingface/hub/models--mlx-community--gemma-4-e2b-it-4bit/snapshots/238767527555cb75a05732a84dff5d6ba0dd6809
 embeddings  mlx-community/bge-small-en-v1.5-4bit @ 6d66cdf
-            cached ✓  /Users/anthonybrites/.cache/huggingface/hub/models--mlx-community--bge-small-en-v1.5-4bit/snapshots/6d66cdf333ff5d4cdad084f2fc2a619575d064ab
+            cached ✓  /Users/<user>/.cache/huggingface/hub/models--mlx-community--bge-small-en-v1.5-4bit/snapshots/6d66cdf333ff5d4cdad084f2fc2a619575d064ab
 execution   local (HF_HUB_OFFLINE=1) · network now: offline (no DNS)
 vault       vault/ · 3 source text(s) (3 .txt original(s) kept unchanged) · 14 wiki note(s) {'Articles': 3, 'Concepts': 9, 'Organizations': 2} · index.md ✓
 index       61 passages (with vectors) in store/
 instruction instructions/persona.md ✓
 instruction instructions/wiki-instructions.md ✓
 instruction instructions/ingest-instructions.md ✓
-outputs     /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs
+outputs     /Users/<user>/code/personal-wiki-class5/evidence/offline/runs
 
 [1;35m━━━ 4. Conversion and ingestion with local Gemma ━━━[0m
 
@@ -111,10 +111,10 @@ $ ./wiki ingest vault/raw --force
 
 3 source(s): 3 processed, 0 unchanged · 0 topic note(s) written · index 61 passages · 26.6s · model load 3.5s
   dropped from wiki/Articles/Contingent Value Rights.md: 'FASB' — the source never names it
-saved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ingest/20260928-224031-report.md
+saved /Users/<user>/code/personal-wiki-class5/evidence/offline/runs/ingest/20260928-224031-report.md
 measured: 26.9 s wall · max RSS 1.12 GB · peak memory footprint 6.30 GB
 
-PASS: 17 → 17 notes, 0 added, 0 removed, 1 changed · report /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/reingest-check.md
+PASS: 17 → 17 notes, 0 added, 0 removed, 1 changed · report /Users/<user>/code/personal-wiki-class5/evidence/offline/reingest-check.md
 
 [1;36m$ .venv/bin/python scripts/check_links.py   # every [[link]] and #heading in the vault resolves[0m
 # Link check
@@ -172,7 +172,7 @@ All links resolve to an existing note, and every #heading exists.
      be used if necessary. The code directs that LIFO may be used "only if the taxpayer
      establishes" that they have no other way of valuing their inventory.
 
-[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/search/20260928-224033-lifo-reserve.md[0m
+[2msaved /Users/<user>/code/personal-wiki-class5/evidence/offline/runs/search/20260928-224033-lifo-reserve.md[0m
 [2m[measured: 1.50 s wall · max RSS 0.16 GB · peak memory footprint 0.18 GB][0m
 
 [1;36m$ ./wiki search "price protection for shareholders" -k 3[0m
@@ -214,7 +214,7 @@ All links resolve to an existing note, and every #heading exists.
      CVRs may be separately tradeable securities; they are occasionally acquired (or shorted) by
      specialized hedge funds.
 
-[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/search/20260928-224034-price-protection-for-shareholders.md[0m
+[2msaved /Users/<user>/code/personal-wiki-class5/evidence/offline/runs/search/20260928-224034-price-protection-for-shareholders.md[0m
 
 [1;35m━━━ 6. Ask mode: the four pre-registered tests (tests/ask-tests.md) ━━━[0m
 
@@ -241,7 +241,7 @@ All links resolve to an existing note, and every #heading exists.
 
 [1mCitation check: [0m[32mcitations verified[0m
 [2m[1621 prompt tok · 57 new tok · 66 tok/s · 2.3s · peak 4.31 GB · retrieval 0.78s · model load 3.4s][0m
-[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224041-in-the-foo-co-example-what-was-the-total-cost-of.md[0m
+[2msaved /Users/<user>/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224041-in-the-foo-co-example-what-was-the-total-cost-of.md[0m
 [2m[measured: 6.76 s wall · max RSS 2.76 GB · peak memory footprint 4.84 GB][0m
 
 [1;36m$ ./wiki ask Can a company count the customer loyalty it built up by itself as something it owns on its books? --mode local[0m
@@ -267,7 +267,7 @@ All links resolve to an existing note, and every #heading exists.
 
 [1mCitation check: [0m[32mcitations verified[0m
 [2m[1431 prompt tok · 65 new tok · 64 tok/s · 2.2s · peak 4.39 GB · retrieval 1.15s · model load 3.4s][0m
-[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224048-can-a-company-count-the-customer-loyalty-it-buil.md[0m
+[2msaved /Users/<user>/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224048-can-a-company-count-the-customer-loyalty-it-buil.md[0m
 [2m[measured: 7.03 s wall · max RSS 3.01 GB · peak memory footprint 4.91 GB][0m
 
 [1;36m$ ./wiki ask What does goodwill represent in an acquisition, and which kind of contingent value right protects the buyer against overpaying? --mode local[0m
@@ -296,7 +296,7 @@ All links resolve to an existing note, and every #heading exists.
 
 [1mCitation check: [0m[32mcitations verified[0m
 [2m[1263 prompt tok · 138 new tok · 62 tok/s · 3.4s · peak 4.32 GB · retrieval 1.24s · model load 3.4s][0m
-[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224056-what-does-goodwill-represent-in-an-acquisition-a.md[0m
+[2msaved /Users/<user>/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224056-what-does-goodwill-represent-in-an-acquisition-a.md[0m
 [2m[measured: 8.32 s wall · max RSS 2.55 GB · peak memory footprint 4.88 GB][0m
 
 [1;36m$ ./wiki ask What discount rate must companies use when testing goodwill for impairment? --mode local[0m
@@ -322,7 +322,7 @@ All links resolve to an existing note, and every #heading exists.
 
 [1mCitation check: [0m[33minsufficient evidence reported[0m: the question asks for a specific value, but the answer gives none: reporting insufficient evidence (Gemma's reply kept)
 [2m[1280 prompt tok · 99 new tok · 66 tok/s · 2.6s · peak 4.33 GB · retrieval 1.33s · model load 3.3s][0m
-[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224104-what-discount-rate-must-companies-use-when-testi.md[0m
+[2msaved /Users/<user>/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224104-what-discount-rate-must-companies-use-when-testi.md[0m
 [2m[measured: 7.65 s wall · max RSS 2.66 GB · peak memory footprint 4.89 GB][0m
 
 [1;35m━━━ 7. Chat mode checks: capabilities, a plan, a follow-up, and a claim made only in chat ━━━[0m
@@ -432,7 +432,7 @@ This covers the core calculations and recognition rules. How does that look?
 
 [1mCitation check: [0m[32mcitations verified[0m
 [2m[1183 prompt tok · 84 new tok · 66 tok/s · 2.2s · peak 4.27 GB · retrieval 1.15s · model load 3.3s][0m
-[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224133-is-lifo-allowed-under-ifrs.md[0m
+[2msaved /Users/<user>/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224133-is-lifo-allowed-under-ifrs.md[0m
 [2m[measured: 7.01 s wall · max RSS 3.01 GB · peak memory footprint 4.81 GB][0m
 
 [1;35m━━━ 9. Still offline at the end? ━━━[0m
