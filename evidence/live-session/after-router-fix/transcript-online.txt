@@ -1,0 +1,36 @@
+loading mlx-community/gemma-4-e2b-it-4bit ...loaded Gemma 4 E2B-it · 4-bit MLX in 4.7s · local · offline-pinned          
+Marginalia — your personal wiki assistant. /help for commands, /exit to quit.
+
+you> what can we do?
+  · notes: not searched (conversational / capabilities question)
+marginalia> We can brainstorm, draft, outline study plans, write things differently, look up facts in your notes, or search for specific topics.
+
+To get started, how about we look up some information on the wiki? For example, you could try `/notes <question>` to ask about a concept.
+  [887 prompt tok · 61 new tok · 64 tok/s · 2.0s · peak 4.19 GB]
+
+you> Summarize goodwill impairment in 3 bullets
+  · notes: searched (mentions wiki topic: Goodwill Accounting, Impairment Testing) → S1, S2, S3, S4
+marginalia> Here is a summary of goodwill impairment based on the notes:
+
+*   Instead of annually deducting goodwill, companies must determine the fair value of reporting units by comparing it to the carrying value [S1].
+*   If the fair value is less than the carrying value (impaired), the goodwill value must be reduced so that the carrying value equals the fair value [S1].
+*   Management is responsible for valuing goodwill yearly to determine if an impairment is required. An impairment is recorded if the fair market value falls below the historical cost, but an increase in fair value is not recognized this way [S4].
+  sources:
+    [S1] raw/Wikipedia - Goodwill (accounting).md § Amortization and adjustments to carrying value (lines 66-66)
+    [S4] raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 14-14)
+  [1707 prompt tok · 126 new tok · 63 tok/s · 3.0s · peak 4.33 GB]
+
+you> make that shorter
+  · notes: not searched (follow-up on the previous reply — uses the conversation)
+marginalia> Here is a shorter version:
+
+*   Goodwill isn't amortized; instead, management checks for impairment yearly [S4].
+*   If fair value is lower than carrying value, goodwill must be reduced to match the fair value [S1].
+*   Increases in fair value are not recognized in this manner [S4].
+  sources:
+    [S4] raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 14-14)
+    [S1] raw/Wikipedia - Goodwill (accounting).md § Amortization and adjustments to carrying value (lines 66-66)
+  [1810 prompt tok · 72 new tok · 64 tok/s · 2.2s · peak 4.37 GB]
+
+you> /exit
+transcript saved to evidence/live-session/after-router-fix/chat/20260929-083221-session.md

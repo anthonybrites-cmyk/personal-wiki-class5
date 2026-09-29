@@ -338,7 +338,11 @@ its own:
 **When chat retrieves.** [`harness/router.py`](harness/router.py) is rule-based on
 purpose, and it prints its decision every turn:
 
-1. Follow-up edits ("make that shorter") → use the conversation, **no search**.
+1. Follow-up edits ("make that shorter") → use the conversation, **no search**. A message
+   that names a wiki topic counts as a follow-up only if it also points back at the last
+   reply ("that", "it", "this"). Without that rule, "Summarize goodwill impairment in 3
+   bullets" was mistaken for a rewrite: a bug found in the
+   [live session](evidence/live-session/README.md).
 2. Small talk and capability questions ("what can we do?") → **no search**.
 3. The message names a wiki note, by title or alias (e.g. "goodwill", "LIFO", "CVR",
    "IFRS") → **search only the source files behind that note**.
@@ -426,12 +430,18 @@ starts a new `./wiki` process for each step.
   [`terminal.typescript`](evidence/offline/terminal.typescript) is the same session
   recorded by `script(1)`, with colours.
 - [`evidence/offline/runs/`](evidence/offline/runs/): every saved record from that run.
-- **Code version:** the offline run used commit `08eda47`. Later commits changed harness
-  code only for error handling: clearer missing-model messages, keyword-only search
-  without embeddings, and failing fast on an empty persona or a missing path. After those
-  changes I reran the four ask tests and a search online, and got identical answers. The
-  other later commits only added evidence (setup check, error handling, live chat) or
-  redacted my Mac username from the transcripts.
+- **Code version:** the scripted offline run used commit `08eda47`. Later harness changes:
+  - **error handling:** clearer missing-model messages, keyword-only search without
+    embeddings, failing fast on an empty persona or a missing path. After these I reran
+    the four ask tests and a search online, with identical answers;
+  - **ingest:** a single converted `.txt` path now uses its Markdown copy, so no duplicate
+    note is made;
+  - **chat router:** a fix for a bug found in the live typed session (below). Ask never
+    uses the router, and re-routing every recorded chat message changed only the one that
+    hit the bug.
+
+  The other later commits only added evidence or redacted my Mac username from the
+  transcripts.
 - **Chat input:** in the offline run, chat's messages were piped in by the script
   (`printf '…' | ./wiki chat`) so the run is reproducible.
 - **Live chat, typed by me, offline:** [`evidence/live-chat/`](evidence/live-chat/README.md)
@@ -439,6 +449,15 @@ starts a new `./wiki` process for each step.
   capabilities, a study plan, "make that shorter", a factual question, and `/sources`. It
   has the transcript, my turn-by-turn check against the articles (two weak citations
   found), and a [screenshot](evidence/screenshots/live-chat-offline.png).
+- **Live session, typed by me, offline:** [`evidence/live-session/`](evidence/live-session/README.md)
+  is a recorded shell where I typed each command with Wi-Fi off. It covers `--help`,
+  `status`, a forced `ingest`, `search`, three `ask` questions, and a chat with a
+  follow-up, each checked against the source. It shows:
+  - one answer passing as verified when it answers a different question ("who founded");
+  - a chat-router bug, which I found, fixed, and re-checked (see its page);
+  - one misstated bullet.
+
+  [Screenshot](evidence/screenshots/live-session-offline.png).
 - [`evidence/screenshots/offline-terminal-end.png`](evidence/screenshots/offline-terminal-end.png): the Terminal panel at the end of the run. It shows the last ask, the closing air-gap check (Wi-Fi off; ping, DNS and HTTPS all failing), and "Offline demo finished (exit 0)". While Wi-Fi was off, `route` still printed a default-route entry with no interface, so the three reachability checks are the ground truth.
 
 ### Ask-mode tests (four questions)
@@ -607,8 +626,11 @@ is *supported*, not that it is *responsive*.
   value (a rate, a number, a date, "how many") and the answer contains none, it reports
   *insufficient evidence* and keeps Gemma's reply for inspection. That made test 4 pass
   offline.
-- But the rule only covers value questions. A well-cited answer to a related "why" or
-  "how" question would still pass.
+- But the rule only covers value questions. A well-cited answer to a related "who", "why",
+  or "how" question still passes. The [live session](evidence/live-session/README.md)
+  shows it: asked "Who founded the Save LIFO Coalition?", Gemma answered "The Save LIFO
+  Coalition argues in favor of the retention of the LIFO method [S1]", and it was marked
+  verified. Asked "In what year was it founded?", it refused.
 
 **Next improvement to try: extract the answer type before answering.** Before calling
 Gemma, the harness would classify what the question asks for: a value, a yes/no, a

@@ -4,7 +4,7 @@
       "note": "wiki/Articles/Contingent Value Rights.md",
       "title": "Contingent Value Rights",
       "sha256": "2f085aac4d696e38f05db08059a8f9de847c2eb493f3399b037ffbf73396b6c7",
-      "ingested_at": "2026-09-28T22:40:05",
+      "ingested_at": "2026-09-29T08:27:25",
       "model": "mlx-community/gemma-4-e2b-it-4bit@2387675",
       "topics": [
         {
@@ -29,7 +29,7 @@
       "note": "wiki/Articles/FIFO and LIFO Accounting.md",
       "title": "FIFO and LIFO Accounting",
       "sha256": "c0c79478cb65d2e647ad0338538c72473bbf4c5d5abcaa56cf6874a1e1204845",
-      "ingested_at": "2026-09-28T22:40:05",
+      "ingested_at": "2026-09-29T08:27:25",
       "model": "mlx-community/gemma-4-e2b-it-4bit@2387675",
       "topics": [
         {
@@ -64,7 +64,7 @@
       "note": "wiki/Articles/Goodwill Accounting.md",
       "title": "Goodwill Accounting",
       "sha256": "738dacf36b37ee6a7d657f105de1e000ea3c5d04636713ddd5038339d7177e4f",
-      "ingested_at": "2026-09-28T22:40:05",
+      "ingested_at": "2026-09-29T08:27:25",
       "model": "mlx-community/gemma-4-e2b-it-4bit@2387675",
       "topics": [
         {

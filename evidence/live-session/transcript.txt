@@ -1,0 +1,279 @@
+━━━ Live session, typed by hand, offline ━━━
+time:         2026-09-29 08:27:01 PDT
+wi-fi:        Wi-Fi Power (en0): Off
+ping 1.1.1.1: blocked
+HTTPS hf.co:  fails
+
+Type these one at a time. Press Enter, and wait for the prompt to come back:
+
+  1  ./wiki --help
+  2  ./wiki status
+  3  ./wiki ingest vault/raw --force        (Gemma re-drafts all 3 articles, about 30 s)
+  4  ./wiki search "LIFO reserve"
+  5  ./wiki ask "What was the total cost of sales for November under LIFO in the Foo Co. example?"
+  6  ./wiki ask "Who founded the Save LIFO Coalition?"               (the notes don't say)
+  7  ./wiki ask "In what year was the Save LIFO Coalition founded?"   (the notes don't say)
+  8  ./wiki chat      then type:  what can we do?
+                                  Summarize goodwill impairment in 3 bullets
+                                  make that shorter
+                                  /exit
+  9  exit             (ends the recording and re-checks the network)
+
+
+offline-demo $ ./wiki --help
+usage: wiki [-h] <command> ...
+
+Personal wiki CLI: local Gemma 4 E2B + retrieval over your own notes.
+
+positional arguments:
+  <command>
+    convert   make Markdown copies of .txt originals (no model)
+    ingest    turn sources in vault/raw into linked wiki notes (uses Gemma)
+    index     rebuild the retrieval index only (no Gemma)
+    search    show original matching passages (no Gemma, no answer)
+    ask       standalone factual answer with citations (RAG)
+    chat      personal assistant with conversation memory
+    status    show model, vault, index and instruction files
+
+options:
+  -h, --help  show this help message and exit
+
+modes:
+  chat    personal assistant with a voice and conversation memory; searches the
+          notes only when a message needs them (the router's reason is printed)
+  ask     one standalone factual question → retrieved passages → Gemma → cited
+          answer or "insufficient evidence"; never sees chat history or persona
+  search  original passages + file locations only; no answer, Gemma never loads
+
+examples:
+  wiki convert vault/raw
+  wiki ingest vault/raw
+  wiki search "LIFO reserve"
+  wiki ask "When is goodwill recognized?" --mode local
+  wiki chat
+  wiki status
+
+configuration (harness/config.py):
+  model        mlx-community/gemma-4-e2b-it-4bit (local MLX, offline-pinned)
+  embeddings   mlx-community/bge-small-en-v1.5-4bit
+  vault        vault/  (raw/ originals, wiki/ notes, index.md) — open it in Obsidian
+  instructions instructions/persona.md (chat), wiki-instructions.md (ask),
+               ingest-instructions.md (ingest)
+  outputs      runs/ (or $WIKI_RUNS_DIR); machine index in store/
+
+required inputs: Markdown or .txt files in vault/raw/ (.txt is converted to a Markdown
+copy first; the original is never modified) and the model weights in the
+local Hugging Face cache (see README → Setup). Nothing is fetched at run time.
+
+
+offline-demo $ ./wiki status
+── wiki status ───────────────────────────────────────────────────────────────
+model       mlx-community/gemma-4-e2b-it-4bit @ 2387675  (Gemma 4 E2B-it · 4-bit MLX)
+            cached ✓  /Users/<user>/.cache/huggingface/hub/models--mlx-community--gemma-4-e2b-it-4bit/snapshots/238767527555cb75a05732a84dff5d6ba0dd6809
+embeddings  mlx-community/bge-small-en-v1.5-4bit @ 6d66cdf
+            cached ✓  /Users/<user>/.cache/huggingface/hub/models--mlx-community--bge-small-en-v1.5-4bit/snapshots/6d66cdf333ff5d4cdad084f2fc2a619575d064ab
+execution   local (HF_HUB_OFFLINE=1) · network now: offline (no DNS)
+vault       vault/ · 3 source text(s) (3 .txt original(s) kept unchanged) · 14 wiki note(s) {'Articles': 3, 'Concepts': 9, 'Organizations': 2} · index.md ✓
+index       61 passages (with vectors) in store/
+instruction instructions/persona.md ✓
+instruction instructions/wiki-instructions.md ✓
+instruction instructions/ingest-instructions.md ✓
+outputs     /Users/<user>/code/personal-wiki-class5/evidence/live-session/runs
+
+
+offline-demo $ ./wiki ingest vault/raw --force
+── ingest · local · Gemma 4 E2B-it · 4-bit MLX ───────────────────────────────
+  · raw/Wikipedia - Contingent value rights.md ...
+  ✓ raw/Wikipedia - Contingent value rights.md → wiki/Articles/Contingent Value Rights.md [kept-reviewed] · kept 5 facts, dropped 1 · 6.7s
+  · raw/Wikipedia - FIFO and LIFO accounting.md ...
+  ✓ raw/Wikipedia - FIFO and LIFO accounting.md → wiki/Articles/FIFO and LIFO Accounting.md [kept-reviewed] · kept 6 facts, dropped 0 · 7.1s
+  · raw/Wikipedia - Goodwill (accounting).md ...
+  ✓ raw/Wikipedia - Goodwill (accounting).md → wiki/Articles/Goodwill Accounting.md [kept-reviewed] · kept 5 facts, dropped 0 · 7.1s
+
+3 source(s): 3 processed, 0 unchanged · 0 topic note(s) written · index 61 passages · 26.8s · model load 3.4s
+  dropped from wiki/Articles/Contingent Value Rights.md: 'FASB' — the source never names it
+saved /Users/<user>/code/personal-wiki-class5/evidence/live-session/runs/ingest/20260929-082751-report.md
+
+
+offline-demo $ ./wiki search "LIFO reserve"
+── search · sources · no model ───────────────────────────────────────────────
+query: LIFO reserve
+4 passage(s) · BM25 + bge-small vectors (RRF) · 1.19s · no answer is generated
+
+[S1] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 46-46)
+     rrf 0.0325 · bm25 4.72 · cosine 0.631
+     In the United States, publicly traded entities which use LIFO for taxation purposes must
+     also use LIFO for financial reporting purposes, but such companies are also likely to
+     report a LIFO reserve to their shareholders. A number of tax reform proposals have argued
+     for the repeal of LIFO tax provision.
+
+[S2] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 38-44)
+     rrf 0.0325 · bm25 4.46 · cosine 0.656
+     In the FIFO example above, the company (Foo Co.), using LIFO accounting, would expense the
+     cost associated with the first 75 units at $59, 125 more units at $55, and the remaining 10
+     units at $50. Under LIFO, the total cost of sales for November would be $11,800. The ending
+     inventory would be calculated the following way:
+     
+     The balance sheet would show $4500 in inventory under LIFO.
+     
+     The difference between the cost of an inventory calculated under the FIFO and LIFO methods
+     is called the LIFO reserve (in the example above, it is $750, i.e. $5250 - $4500). This
+     reserve, a form of contra account, is essentially the amount by which an entity's taxable
+     income has been deferred by using the LIFO method.
+     
+     In most sets of accounting standards, such as the International Financial Reporting
+     Standards, FIFO (or LIFO) valuation principles are "in-fine" subordinated to the higher
+     principle of lower of cost or market valuation.
+
+[S3] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 34-36)
+     rrf 0.0313 · bm25 2.14 · cosine 0.611
+     "LIFO" stands for last-in, first-out, meaning that the most recently purchased items are
+     recorded as sold first. From the 1970s, some U.S. companies shifted towards the use of
+     LIFO, which reduces their income taxes in times of inflation, but since International
+     Financial Reporting Standards (IFRS) banned LIFO, more companies returned to FIFO. One
+     third of American companies are thought to use LIFO, according to the "Save LIFO
+     Coalition", which argues in favor of the retention of the LIFO method.
+     
+     LIFO is used only in the United States, which is governed by the generally accepted
+     accounting principles (GAAP). Section 472 of the Internal Revenue Code directs how LIFO may
+     be used if necessary. The code directs that LIFO may be used "only if the taxpayer
+     establishes" that they have no other way of valuing their inventory.
+
+[S4] raw/Wikipedia - Contingent value rights.md § See also (lines 38-44)
+     rrf 0.0145 · bm25 0.00 · cosine 0.475
+     Strip financing
+     
+     Hold-up problem
+     
+     Earnout
+     
+     Special situation
+
+saved /Users/<user>/code/personal-wiki-class5/evidence/live-session/runs/search/20260929-082802-lifo-reserve.md
+
+
+offline-demo $ ./wiki ask "What was the total cost of sales for November under LIFO in the Foo Co. example?"
+── ask · local · Gemma 4 E2B-it · 4-bit MLX ──────────────────────────────────
+Q: What was the total cost of sales for November under LIFO in the Foo Co. example?
+
+Retrieved passages (6)  — hybrid BM25 + bge-small, original text
+  [S1] raw/Wikipedia - FIFO and LIFO accounting.md § FIFO (lines 20-26) rrf=0.0325 bm25=17.9 cos=0.73
+  [S2] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 38-44) rrf=0.0325 bm25=14.9 cos=0.80
+  [S3] raw/Wikipedia - FIFO and LIFO accounting.md § FIFO (lines 16-18) rrf=0.0315 bm25=6.4 cos=0.65
+  [S4] raw/Wikipedia - Goodwill (accounting).md § Calculating goodwill (lines 22-42) rrf=0.0284 bm25=1.7 cos=0.53
+  [S5] raw/Wikipedia - Goodwill (accounting).md § Modern meaning (lines 46-48) rrf=0.0275 bm25=3.1 cos=0.47
+  [S6] raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 14-14) rrf=0.0274 bm25=1.2 cos=0.50
+
+Answer: Under LIFO, the total cost of sales for November would be $11,800 [S2].
+
+Citations
+  [S2] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 38-44)
+       “Under LIFO, the total cost of sales for November would be $11,800.”  ✓ found in passage
+
+Claim check
+  ✓ supported by S2  Under LIFO, the total cost of sales for November would be $11,800.
+
+Citation check: citations verified
+[1621 prompt tok · 59 new tok · 66 tok/s · 2.3s · peak 4.31 GB · retrieval 0.75s · model load 3.3s]
+saved /Users/<user>/code/personal-wiki-class5/evidence/live-session/runs/ask/20260929-082818-what-was-the-total-cost-of-sales-for-november-un.md
+
+
+offline-demo $ ./wiki ask "Who founded the Save LIFO Coalition?"
+── ask · local · Gemma 4 E2B-it · 4-bit MLX ──────────────────────────────────
+Q: Who founded the Save LIFO Coalition?
+
+Retrieved passages (3)  — hybrid BM25 + bge-small, original text
+  [S1] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 34-36) rrf=0.0328 bm25=6.4 cos=0.53
+  [S2] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 46-46) rrf=0.0318 bm25=2.2 cos=0.49
+  [S3] raw/Wikipedia - FIFO and LIFO accounting.md § FIFO and LIFO accounting (lines 12-12) rrf=0.0315 bm25=1.8 cos=0.52
+
+Answer: The Save LIFO Coalition argues in favor of the retention of the LIFO method [S1].
+
+Citations
+  [S1] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 34-36)
+       “One third of American companies are thought to use LIFO, according to the "Save LIFO Coalition", which argues in favor of the retention of the LIFO method.”  ✓ found in passage
+
+Claim check
+  ✓ supported by S1  The Save LIFO Coalition argues in favor of the retention of the LIFO method.
+
+Citation check: citations verified
+[736 prompt tok · 68 new tok · 66 tok/s · 1.9s · peak 4.25 GB · retrieval 1.13s · model load 3.3s]
+saved /Users/<user>/code/personal-wiki-class5/evidence/live-session/runs/ask/20260929-082835-who-founded-the-save-lifo-coalition.md
+
+
+offline-demo $ ./wiki ask "In what year was the Save LIFO Coalition founded?"
+── ask · local · Gemma 4 E2B-it · 4-bit MLX ──────────────────────────────────
+Q: In what year was the Save LIFO Coalition founded?
+
+Retrieved passages (5)  — hybrid BM25 + bge-small, original text
+  [S1] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 34-36) rrf=0.0328 bm25=6.4 cos=0.53
+  [S2] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 46-46) rrf=0.0313 bm25=2.2 cos=0.48
+  [S3] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 38-44) rrf=0.0312 bm25=2.0 cos=0.50
+  [S4] raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 14-14) rrf=0.0288 bm25=2.7 cos=0.32
+  [S5] raw/Wikipedia - Goodwill (accounting).md § Amortization and adjustments to carrying value (lines 66-66) rrf=0.0273 bm25=1.9 cos=0.30
+
+Answer: The notes do not contain information about the year the Save LIFO Coalition was founded.
+
+Passages quoted while deciding (no answer found)
+  [S1] raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 34-36)
+       “One third of American companies are thought to use LIFO, according to the "Save LIFO Coalition", which argues in favor of the retention of the LIFO method.”  ✓ found in passage
+
+Citation check: insufficient evidence reported
+  note: refusal phrased in the model's own words, not the required INSUFFICIENT EVIDENCE format
+[1214 prompt tok · 65 new tok · 66 tok/s · 2.1s · peak 4.28 GB · retrieval 1.03s · model load 3.3s]
+saved /Users/<user>/code/personal-wiki-class5/evidence/live-session/runs/ask/20260929-082846-in-what-year-was-the-save-lifo-coalition-founded.md
+
+
+offline-demo $ ./wiki chat
+loading mlx-community/gemma-4-e2b-it-4bit ...
+loaded Gemma 4 E2B-it · 4-bit MLX in 4.5s · local · offline-pinned          
+Marginalia — your personal wiki assistant. /help for commands, /exit to quit.
+
+you> what can we do?
+  · notes: not searched (conversational / capabilities question)
+marginalia> We can brainstorm, draft outlines, create study plans, rewrite text, or look things up in your notes.
+
+How about we start by looking up something specific? For example, you could try `/notes <question>` to search the wiki.
+  [887 prompt tok · 50 new tok · 59 tok/s · 1.8s · peak 4.19 GB]
+
+you> Summarize goodwill impairment in 3 bullets
+  · notes: not searched (follow-up on the previous reply — uses the conversation)
+marginalia> Suggestion: I need to look up the details on goodwill impairment for you. Try using `/notes goodwill impairment` to see what I find in the wiki.
+  [954 prompt tok · 32 new tok · 60 tok/s · 1.2s · peak 4.25 GB]
+
+you> /notes goodwill impairment
+  · notes: searched (forced with /notes) → S1, S2, S3, S4
+marginalia> Here is a summary of goodwill impairment based on the notes:
+
+*   When the fair value of reporting units is less than their carrying value (book value of assets plus goodwill minus liabilities), the goodwill must be reduced to equal the carrying value [S1].
+*   Under U.S. GAAP and IFRS, goodwill is generally not amortized for public companies because it is considered to have an indefinite useful life [S2].
+*   Private companies may elect to amortize goodwill over ten years or less under an alternative accounting method [S2].
+  sources:
+    [S1] raw/Wikipedia - Goodwill (accounting).md § Amortization and adjustments to carrying value (lines 66-66)
+    [S2] raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 14-14)
+  [1526 prompt tok · 114 new tok · 59 tok/s · 3.2s · peak 4.44 GB]
+
+you> make that shorter
+  · notes: not searched (follow-up on the previous reply — uses the conversation)
+marginalia> Got it. Here is a shorter version:
+
+*   Impairment occurs when fair value drops below carrying value, requiring a reduction of the goodwill [S1].
+*   Public companies typically don't amortize goodwill due to its indefinite life [S2].
+*   Private companies have options for amortization under specific accounting alternatives [S2].
+  sources:
+    [S1] raw/Wikipedia - Goodwill (accounting).md § Amortization and adjustments to carrying value (lines 66-66)
+    [S2] raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 14-14)
+  [1617 prompt tok · 73 new tok · 59 tok/s · 2.3s · peak 4.44 GB]
+
+you> /exit
+transcript saved to evidence/live-session/runs/chat/20260929-083035-session.md
+
+
+offline-demo $ exit
+exit
+
+━━━ End of session: still offline? ━━━
+time:         2026-09-29 08:30:43 PDT
+wi-fi:        Wi-Fi Power (en0): Off
+ping 1.1.1.1: blocked
+HTTPS hf.co:  fails

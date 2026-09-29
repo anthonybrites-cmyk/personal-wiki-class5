@@ -1,0 +1,165 @@
+{
+  "saved_at": "2026-09-29T08:32:21",
+  "mode": "chat",
+  "execution": "local",
+  "model": {
+    "model": "mlx-community/gemma-4-e2b-it-4bit",
+    "revision": "238767527555cb75a05732a84dff5d6ba0dd6809",
+    "label": "Gemma 4 E2B-it · 4-bit MLX",
+    "quantization": "4-bit affine, group size 64 (MLX)",
+    "runtime": "mlx 0.32.2 + mlx-vlm 0.7.2",
+    "execution": "local"
+  },
+  "prompt_files": [
+    "instructions/persona.md"
+  ],
+  "turns": [
+    {
+      "user": "what can we do?",
+      "route": {
+        "retrieve": false,
+        "reason": "conversational / capabilities question",
+        "query": ""
+      },
+      "retrieved": [],
+      "passages_in_context": [],
+      "reply": "We can brainstorm, draft, outline study plans, write things differently, look up facts in your notes, or search for specific topics.\n\nTo get started, how about we look up some information on the wiki? For example, you could try `/notes <question>` to ask about a concept.",
+      "cited": [],
+      "unknown_citations": [],
+      "stats": {
+        "prompt_tokens": 887,
+        "generated_tokens": 61,
+        "prompt_tps": 1323.01,
+        "generation_tps": 64.314,
+        "peak_memory_gb": 4.192,
+        "seconds": 1.961,
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "user": "Summarize goodwill impairment in 3 bullets",
+      "route": {
+        "retrieve": true,
+        "reason": "mentions wiki topic: Goodwill Accounting, Impairment Testing",
+        "query": "Summarize goodwill impairment in 3 bullets"
+      },
+      "retrieved": [
+        {
+          "label": "S1",
+          "rank": 1,
+          "score": 0.03252,
+          "bm25": 3.165,
+          "vector": 0.7007,
+          "id": "raw/Wikipedia - Goodwill (accounting).md#L66-L66",
+          "kind": "source",
+          "path": "raw/Wikipedia - Goodwill (accounting).md",
+          "title": "Goodwill (accounting)",
+          "section": "Amortization and adjustments to carrying value",
+          "heading_path": "United States practice > Amortization and adjustments to carrying value",
+          "start_line": 66,
+          "end_line": 66,
+          "text": "Instead of deducting the value of goodwill annually over a period of a maximum of 40 years, companies are now required to determine the fair value of the reporting units, using the present value of future cash flow, and compare it to their carrying value (book value of assets plus goodwill minus liabilities) If the fair value is less than carrying value (impaired), the goodwill value needs to be reduced. Hence, the carrying value equals the fair value. The impairment loss is reported as a separate line item on the income statement, and the new adjusted value of goodwill is reported in the balance sheet."
+        },
+        {
+          "label": "S2",
+          "rank": 2,
+          "score": 0.03151,
+          "bm25": 1.187,
+          "vector": 0.6908,
+          "id": "raw/Wikipedia - Goodwill (accounting).md#L12-L12",
+          "kind": "source",
+          "path": "raw/Wikipedia - Goodwill (accounting).md",
+          "title": "Goodwill (accounting)",
+          "section": "Goodwill (accounting)",
+          "heading_path": "Goodwill (accounting)",
+          "start_line": 12,
+          "end_line": 12,
+          "text": "In accounting, goodwill is an intangible asset recognized when a firm is purchased as a going concern. It reflects the premium the buyer pays over the net value of its other assets. Goodwill is often understood to represent the firm's intrinsic ability to acquire and retain customer business, where that is not attributed more specifically to a brand name, contractual arrangements, or otherwise. It is recognized only through an acquisition; it cannot be self-created. It is classified as an intangible asset on the balance sheet because it cannot be seen or touched."
+        },
+        {
+          "label": "S3",
+          "rank": 3,
+          "score": 0.0315,
+          "bm25": 1.22,
+          "vector": 0.6883,
+          "id": "raw/Wikipedia - Goodwill (accounting).md#L22-L42",
+          "kind": "source",
+          "path": "raw/Wikipedia - Goodwill (accounting).md",
+          "title": "Goodwill (accounting)",
+          "section": "Calculating goodwill",
+          "heading_path": "Calculating goodwill",
+          "start_line": 22,
+          "end_line": 42,
+          "text": "To calculate goodwill, the fair market value of the acquired company's identifiable assets and liabilities is deducted from the purchase price. For instance, if company A acquired 100% of company B but paid more than company B's net market value, goodwill arises. To calculate goodwill, it is necessary to have a list of all of company B's assets and liabilities at fair market value.\n\n```\n                        Fair market value\n  Accounts Receivable   $10\n  Inventory              $5\n  Accounts payable       $6\n  -------------------------\n  Total Net assets    = $10 + $5 - $6\n                      =  $9\n```\n\nTo acquire company B, company A paid $20. Hence, goodwill would be $11 ($20 − $9). The journal entry in the books of company A to record the acquisition of company B would be:\n\n```\n  DR Goodwill             $11\n  DR Accounts Receivable  $10\n  DR Inventory             $5\n  CR Accounts Payable      $6\n  CR Cash                 $20\n```"
+        },
+        {
+          "label": "S4",
+          "rank": 4,
+          "score": 0.03068,
+          "bm25": 4.135,
+          "vector": 0.6564,
+          "id": "raw/Wikipedia - Goodwill (accounting).md#L14-L14",
+          "kind": "source",
+          "path": "raw/Wikipedia - Goodwill (accounting).md",
+          "title": "Goodwill (accounting)",
+          "section": "Goodwill (accounting)",
+          "heading_path": "Goodwill (accounting)",
+          "start_line": 14,
+          "end_line": 14,
+          "text": "Under U.S. GAAP and IFRS, goodwill is never amortized for public companies, because it is considered to have an indefinite useful life. On the other hand, private companies in the United States may elect to amortize goodwill over a period of ten years or less under an accounting alternative from the Private Company Council of the FASB. Instead, management is responsible for valuing goodwill every year and determining if an impairment is required. If the fair market value falls below the historical cost (the amount for which goodwill was purchased), an impairment must be recorded to adjust it down to fair market value. However, an increase in fair market value would not be recognized in this way, and may instead be attributed to other assets."
+        }
+      ],
+      "passages_in_context": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "reply": "Here is a summary of goodwill impairment based on the notes:\n\n*   Instead of annually deducting goodwill, companies must determine the fair value of reporting units by comparing it to the carrying value [S1].\n*   If the fair value is less than the carrying value (impaired), the goodwill value must be reduced so that the carrying value equals the fair value [S1].\n*   Management is responsible for valuing goodwill yearly to determine if an impairment is required. An impairment is recorded if the fair market value falls below the historical cost, but an increase in fair value is not recognized this way [S4].",
+      "cited": [
+        "S1",
+        "S4"
+      ],
+      "unknown_citations": [],
+      "stats": {
+        "prompt_tokens": 1707,
+        "generated_tokens": 126,
+        "prompt_tps": 1718.594,
+        "generation_tps": 63.215,
+        "peak_memory_gb": 4.331,
+        "seconds": 3.0,
+        "finish_reason": "stop"
+      }
+    },
+    {
+      "user": "make that shorter",
+      "route": {
+        "retrieve": false,
+        "reason": "follow-up on the previous reply — uses the conversation",
+        "query": ""
+      },
+      "retrieved": [],
+      "passages_in_context": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "reply": "Here is a shorter version:\n\n*   Goodwill isn't amortized; instead, management checks for impairment yearly [S4].\n*   If fair value is lower than carrying value, goodwill must be reduced to match the fair value [S1].\n*   Increases in fair value are not recognized in this manner [S4].",
+      "cited": [
+        "S4",
+        "S1"
+      ],
+      "unknown_citations": [],
+      "stats": {
+        "prompt_tokens": 1810,
+        "generated_tokens": 72,
+        "prompt_tps": 1712.552,
+        "generation_tps": 63.905,
+        "peak_memory_gb": 4.368,
+        "seconds": 2.199,
+        "finish_reason": "stop"
+      }
+    }
+  ]
+}
