@@ -430,8 +430,12 @@ starts a new `./wiki` process for each step.
   failing fast on an empty persona or a missing path). After them I reran the four ask
   tests and a search online, and got identical answers.
 - **Chat input:** in the offline run, chat's messages were piped in by the script
-  (`printf '…' | ./wiki chat`) so the run is reproducible. Chat echoes each piped line as
-  `you>`; it is the same program as an interactive session.
+  (`printf '…' | ./wiki chat`) so the run is reproducible.
+- **Live chat, typed by me, offline:** [`evidence/live-chat/`](evidence/live-chat/README.md)
+  is a second session where I typed each message in `wiki chat` myself with Wi-Fi off:
+  capabilities, a study plan, "make that shorter", a factual question, and `/sources`. It
+  has the transcript, my turn-by-turn check against the articles (two weak citations
+  found), and a [screenshot](evidence/screenshots/live-chat-offline.png).
 - [`evidence/screenshots/offline-terminal-end.png`](evidence/screenshots/offline-terminal-end.png): the Terminal panel at the end of the run. It shows the last ask, the closing air-gap check (Wi-Fi off; ping, DNS and HTTPS all failing), and "Offline demo finished (exit 0)". While Wi-Fi was off, `route` still printed a default-route entry with no interface, so the three reachability checks are the ground truth.
 
 ### Ask-mode tests (four questions)

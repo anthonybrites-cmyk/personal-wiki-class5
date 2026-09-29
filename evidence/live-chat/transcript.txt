@@ -1,0 +1,134 @@
+━━━ Live chat, offline ━━━
+time:         2026-09-28 23:08:16 PDT
+wi-fi:        Wi-Fi Power (en0): Off
+ping 1.1.1.1: blocked
+HTTPS hf.co:  fails
+
+$ ./wiki chat
+loading mlx-community/gemma-4-e2b-it-4bit ...
+loaded Gemma 4 E2B-it · 4-bit MLX in 4.5s · local · offline-pinned          
+Marginalia — your personal wiki assistant. /help for commands, /exit to quit.
+
+you> hi, what can you help me with?
+  · notes: not searched (conversational / capabilities question)
+marginalia> Hey! I'm Marginalia, your study assistant. I can help you brainstorm, draft outlines, create study plans, rewrite text, or look up info from your notes.
+
+How about we start by exploring something from your wiki? For example, you could try `/notes <question>` to search for specific topics.
+  [891 prompt tok · 66 new tok · 61 tok/s · 2.1s · peak 4.19 GB]
+
+you> Draft a 3-day study plan for goodwill and contingent value rights
+  · notes: searched (mentions wiki topic: Contingent Value Rights, Goodwill Accounting) → S1, S2, S3, S4
+marginalia> Suggestion: Here is a draft study plan focusing on Goodwill and Contingent Value Rights.
+
+**Day 1: Understanding Goodwill Accounting**
+
+*   **Focus:** Calculating and understanding goodwill arising from acquisitions.
+*   **Review:** Review the process for calculating goodwill. You need to know how to compare the purchase price against the fair market value of the acquired company's net assets.
+    *   Review the calculation example: Acquiring Company B using the provided journal entry structure. [S4]
+    *   Understand the components: Fair market value of assets and liabilities are deducted from the purchase price to find goodwill. [S4]
+*   **Practice:** Work through several practice problems focusing on calculating goodwill based on provided asset/liability lists.
+
+**Day 2: Impairment and Goodwill Adjustments**
+
+*   **Focus:** How goodwill is handled over time, specifically impairment testing.
+*   **Review:** Focus on the requirement to determine the fair value of reporting units and compare it to the carrying value. [S3]
+    *   Understand what happens when the fair value is less than the carrying value (impairment). [S3]
+    *   Know where the impairment loss is reported (separate line item on the income statement) and how the adjusted goodwill value is reported on the balance sheet. [S3]
+*   **Practice:** Create scenarios where you have a carrying value and a fair value, and determine if an impairment exists and how to adjust the goodwill.
+
+**Day 3: Contingent Value Rights (CVRs)**
+
+*   **Focus:** Understanding the nature and implications of Contingent Value Rights.
+*   **Review:** Focus on what CVRs are and their role in facilitating transactions where uncertainty exists. [S2]
+    *   Understand that CVRs can be separately tradeable securities and may be acquired or shorted by specialized hedge funds. [S2]
+    *   Understand the context of CVRs in corporate finance transactions. [S1]
+*   **Practice:** Outline the different ways CVRs might be structured or analyzed in a transaction.
+
+Let me know if you want me to
+  sources:
+    [S4] raw/Wikipedia - Goodwill (accounting).md § Calculating goodwill (lines 22-42)
+    [S3] raw/Wikipedia - Goodwill (accounting).md § Amortization and adjustments to carrying value (lines 66-66)
+    [S2] raw/Wikipedia - Contingent value rights.md § Contingent value rights (lines 12-12)
+    [S1] raw/Wikipedia - Contingent value rights.md § See also (lines 38-44)
+  [1543 prompt tok · 450 new tok · 58 tok/s · 8.7s · peak 4.34 GB]
+
+you> make that shorter
+  · notes: not searched (follow-up on the previous reply — uses the conversation)
+marginalia> Okay, here is a shorter version of the 3-day study plan:
+
+**3-Day Study Plan: Goodwill & CVRs**
+
+*   **Day 1: Goodwill Basics**
+    *   Calculate goodwill: (Purchase Price) - (Fair Market Value of Net Assets) = Goodwill. [S4]
+    *   Review the journal entry mechanics for recording acquisitions. [S4]
+
+*   **Day 2: Goodwill Impairment**
+    *   Understand impairment: Compare Fair Value vs. Carrying Value. [S3]
+    *   Note the reporting: Impairment loss on the income statement; adjusted goodwill on the balance sheet. [S3]
+
+*   **Day 3: Contingent Value Rights (CVRs)**
+    *   Define CVRs: Rights granted by an acquirer to shareholders in uncertain transactions. [S2]
+    *   Note their marketability (tradeable securities, hedge fund activity). [S2]
+
+Ready to dive deeper into any of these topics?
+  sources:
+    [S4] raw/Wikipedia - Goodwill (accounting).md § Calculating goodwill (lines 22-42)
+    [S3] raw/Wikipedia - Goodwill (accounting).md § Amortization and adjustments to carrying value (lines 66-66)
+    [S2] raw/Wikipedia - Contingent value rights.md § Contingent value rights (lines 12-12)
+  [1971 prompt tok · 219 new tok · 59 tok/s · 5.1s · peak 4.34 GB]
+
+you> What's the difference between event-driven and price-protection CVRs?
+  · notes: searched (mentions wiki topic: Contingent Value Rights) → S5, S6, S2, S7
+marginalia> I can explain the difference between event-driven and price-protection Contingent Value Rights using the notes I have.
+
+Here are the key distinctions:
+
+*   **Event-Driven CVRs:** These rights compensate owners for future positive developments in the business. [S5]
+    *   They protect the acquirer against the risk of paying for a product that might not work, having a limited market, or needing significant investment. [S5]
+    *   These are granted in scenarios where the acquiring company doesn't want to pay for something uncertain. [S5]
+
+*   **Price-Protection CVRs:** These rights are granted when payment is share-based. [S5]
+    *   They protect the acquired company by providing a hedge against downside price risk in the acquirer's equity. [S5]
+    *   These rights help bridge negotiations by ensuring payment is averaged (as opposed to a final price) or setting a floor. [S6]
+
+Suggestion: Think about which type of protection—against a future event or against a direct price drop—is more relevant to the specific transaction you are studying.
+  sources:
+    [S5] raw/Wikipedia - Contingent value rights.md § Forms (lines 16-20)
+    [S6] raw/Wikipedia - Contingent value rights.md § Forms (lines 22-24)
+  [2729 prompt tok · 239 new tok · 58 tok/s · 5.8s · peak 4.35 GB]
+
+you> /sources
+  [S5] raw/Wikipedia - Contingent value rights.md § Forms (lines 16-20)
+      These rights typically take either of two forms:  (1) Event-driven CVRs compensate the
+      owners for yet to eventuate positive developments in their business - hence protecting the
+      acquirer against the valuation risk inherent in overpaying.  (2) Price-protection CVRs are
+      granted when payment is share based - protecting the acquired company, by providing  a
+      hedge against downside price risk in the acquirer's equity.
+      
+      In the first case, CVRs are granted
+      
+      in scenarios in which the acquiring company does not wish to pay for a product that might
+      not work, has a limited market, or might need significant investment;
+
+  [S6] raw/Wikipedia - Contingent value rights.md § Forms (lines 22-24)
+      whereas on the other side, the acquired company “wants to get full value for its assets”.
+      The CVR then “helps bridge this negotiation”.  Under these rights, shareholders will
+      receive additional cash, securities, or benefits if a specific and named event occurs -
+      one where the value of the firm significantly increases - within a specified timeframe.
+      CVRs are common in the biotech and pharmaceutical industries (see Valuation (finance) §
+      Valuation of intangible assets); they are also often granted to shareholders in companies
+      facing significant,  value accretive restructuring.  For an example see Media General /
+      Nexstar Media Group.
+      
+      In the second case, protection against price risk is facilitated by specifying that
+      payment will be made at an averaged, as opposed to final, share price; a floor may also be
+      set.
+
+you> /exit
+transcript saved to evidence/live-chat/runs/chat/20260928-231007-session.md
+
+━━━ After the chat ━━━
+time:         2026-09-28 23:10:07 PDT
+wi-fi:        Wi-Fi Power (en0): Off
+ping 1.1.1.1: blocked
+HTTPS hf.co:  fails
