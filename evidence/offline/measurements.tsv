@@ -1,0 +1,8 @@
+step	wall_s	max_rss_gb	peak_footprint_gb
+ingest (1 path(s), --force)	26.9	1.12	6.30
+search	1.50	0.16	0.18
+ask test-1	6.76	2.76	4.84
+ask test-2	7.03	3.01	4.91
+ask test-3	8.32	2.55	4.88
+ask test-4	7.65	2.66	4.89
+ask after chat	7.01	3.01	4.81

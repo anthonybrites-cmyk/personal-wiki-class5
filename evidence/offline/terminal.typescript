@@ -1,0 +1,444 @@
+
+[1;35m━━━ 1. Proof the machine is offline ━━━[0m
+time:            2026-09-28 22:39:43 PDT
+wi-fi:           Wi-Fi Power (en0): Off
+default route:   PRESENT via 
+ping 1.1.1.1:    blocked
+DNS hf.co:       fails
+HTTPS hf.co:     fails
+
+[1;35m━━━ 2. Device and runtime ━━━[0m
+
+[1;36m$ system_profiler SPHardwareDataType | grep -E 'Model Name|Chip|Total Number of Cores|Memory'[0m
+      Model Name: MacBook Air
+      Chip: Apple M4
+      Total Number of Cores: 10 (4 Performance and 6 Efficiency)
+      Memory: 16 GB
+
+[1;36m$ sw_vers; df -h /; memory_pressure | tail -1[0m
+ProductName:		macOS
+ProductVersion:		26.3.1
+BuildVersion:		25D2128
+free disk: 13Gi of 228Gi
+System-wide memory free percentage: 63%
+
+[1;36m$ .venv/bin/python -c 'import mlx.core, mlx_vlm, mlx_embeddings, platform; ...'[0m
+python 3.11.2 | mlx 0.32.2 | mlx-vlm 0.7.2 | mlx-embeddings 0.1.0 | metal True
+
+[1;35m━━━ 3. Help and status (fresh CLI process) ━━━[0m
+
+[1;36m$ ./wiki --help[0m
+usage: wiki [-h] <command> ...
+
+Personal wiki CLI: local Gemma 4 E2B + retrieval over your own notes.
+
+positional arguments:
+  <command>
+    convert   make Markdown copies of .txt originals (no
+              model)
+    ingest    turn sources in vault/raw into linked wiki
+              notes (uses Gemma)
+    index     rebuild the retrieval index only (no Gemma)
+    search    show original matching passages (no Gemma, no
+              answer)
+    ask       standalone factual answer with citations (RAG)
+    chat      personal assistant with conversation memory
+    status    show model, vault, index and instruction files
+
+options:
+  -h, --help  show this help message and exit
+
+modes:
+  chat    personal assistant with a voice and conversation memory; searches the
+          notes only when a message needs them (the router's reason is printed)
+  ask     one standalone factual question → retrieved passages → Gemma → cited
+          answer or "insufficient evidence"; never sees chat history or persona
+  search  original passages + file locations only; no answer, Gemma never loads
+
+examples:
+  wiki convert vault/raw
+  wiki ingest vault/raw
+  wiki search "LIFO reserve"
+  wiki ask "When is goodwill recognized?" --mode local
+  wiki chat
+  wiki status
+
+configuration (harness/config.py):
+  model        mlx-community/gemma-4-e2b-it-4bit (local MLX, offline-pinned)
+  embeddings   mlx-community/bge-small-en-v1.5-4bit
+  vault        vault/  (raw/ originals, wiki/ notes, index.md) — open it in Obsidian
+  instructions instructions/persona.md (chat), wiki-instructions.md (ask),
+               ingest-instructions.md (ingest)
+  outputs      runs/ (or $WIKI_RUNS_DIR); machine index in store/
+
+required inputs: Markdown or .txt files in vault/raw/ (.txt is converted to a Markdown
+copy first; the original is never modified) and the model weights in the
+local Hugging Face cache (see README → Setup). Nothing is fetched at run time.
+
+[1;36m$ ./wiki status[0m
+[2m── [0m[1mwiki status[0m[2m ───────────────────────────────────────────────────────────────[0m
+model       mlx-community/gemma-4-e2b-it-4bit @ 2387675  (Gemma 4 E2B-it · 4-bit MLX)
+            cached ✓  /Users/anthonybrites/.cache/huggingface/hub/models--mlx-community--gemma-4-e2b-it-4bit/snapshots/238767527555cb75a05732a84dff5d6ba0dd6809
+embeddings  mlx-community/bge-small-en-v1.5-4bit @ 6d66cdf
+            cached ✓  /Users/anthonybrites/.cache/huggingface/hub/models--mlx-community--bge-small-en-v1.5-4bit/snapshots/6d66cdf333ff5d4cdad084f2fc2a619575d064ab
+execution   local (HF_HUB_OFFLINE=1) · network now: offline (no DNS)
+vault       vault/ · 3 source text(s) (3 .txt original(s) kept unchanged) · 14 wiki note(s) {'Articles': 3, 'Concepts': 9, 'Organizations': 2} · index.md ✓
+index       61 passages (with vectors) in store/
+instruction instructions/persona.md ✓
+instruction instructions/wiki-instructions.md ✓
+instruction instructions/ingest-instructions.md ✓
+outputs     /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs
+
+[1;35m━━━ 4. Conversion and ingestion with local Gemma ━━━[0m
+
+[1;36m$ ./wiki convert --force   # .txt originals -> Markdown, word sequence verified, originals untouched[0m
+  [32m✓[0m Wikipedia - Contingent value rights.txt → Wikipedia - Contingent value rights.md [written] [2mutf-8, LF line endings → UTF-8 · 399 words, word sequence identical · 5 headings[0m
+  [32m✓[0m Wikipedia - FIFO and LIFO accounting.txt → Wikipedia - FIFO and LIFO accounting.md [written] [2mutf-8, LF line endings → UTF-8 · 739 words, word sequence identical · 5 headings[0m
+  [32m✓[0m Wikipedia - Goodwill (accounting).txt → Wikipedia - Goodwill (accounting).md [written] [2mutf-8, LF line endings → UTF-8 · 1289 words, word sequence identical · 10 headings[0m
+
+[1;36m$ shasum -a 256 vault/raw/*.txt   # compare with tests/original-txt-sha256.txt[0m
+originals unchanged: all 3 hashes match the ones recorded before processing
+
+[1;36m$ .venv/bin/python scripts/reingest_check.py evidence/offline/reingest-check.md vault/raw   # runs ./wiki ingest vault/raw --force under /usr/bin/time[0m
+$ ./wiki ingest vault/raw --force
+── ingest · local · Gemma 4 E2B-it · 4-bit MLX ───────────────────────────────
+  · raw/Wikipedia - Contingent value rights.md ...
+  ✓ raw/Wikipedia - Contingent value rights.md → wiki/Articles/Contingent Value Rights.md [kept-reviewed] · kept 5 facts, dropped 1 · 6.5s
+  · raw/Wikipedia - FIFO and LIFO accounting.md ...
+  ✓ raw/Wikipedia - FIFO and LIFO accounting.md → wiki/Articles/FIFO and LIFO Accounting.md [kept-reviewed] · kept 6 facts, dropped 0 · 7.2s
+  · raw/Wikipedia - Goodwill (accounting).md ...
+  ✓ raw/Wikipedia - Goodwill (accounting).md → wiki/Articles/Goodwill Accounting.md [kept-reviewed] · kept 5 facts, dropped 0 · 7.3s
+
+3 source(s): 3 processed, 0 unchanged · 0 topic note(s) written · index 61 passages · 26.6s · model load 3.5s
+  dropped from wiki/Articles/Contingent Value Rights.md: 'FASB' — the source never names it
+saved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ingest/20260928-224031-report.md
+measured: 26.9 s wall · max RSS 1.12 GB · peak memory footprint 6.30 GB
+
+PASS: 17 → 17 notes, 0 added, 0 removed, 1 changed · report /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/reingest-check.md
+
+[1;36m$ .venv/bin/python scripts/check_links.py   # every [[link]] and #heading in the vault resolves[0m
+# Link check
+
+- notes checked: 17
+- wikilinks checked: 109
+- broken or ambiguous: 0
+
+All links resolve to an existing note, and every #heading exists.
+
+
+[1;35m━━━ 5. Search mode: original passages only, no model ━━━[0m
+
+[1;36m$ ./wiki search LIFO reserve -k 3[0m
+[2m── [0m[1msearch · sources · no model[0m[2m ───────────────────────────────────────────────[0m
+[1mquery: [0mLIFO reserve
+[2m3 passage(s) · BM25 + bge-small vectors (RRF) · 1.32s · no answer is generated
+[0m
+[36m[S1] [0m[1mraw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 46-46)[0m
+[2m     rrf 0.0325 · bm25 4.72 · cosine 0.631[0m
+     In the United States, publicly traded entities which use LIFO for taxation purposes must
+     also use LIFO for financial reporting purposes, but such companies are also likely to
+     report a LIFO reserve to their shareholders. A number of tax reform proposals have argued
+     for the repeal of LIFO tax provision.
+
+[36m[S2] [0m[1mraw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 38-44)[0m
+[2m     rrf 0.0325 · bm25 4.46 · cosine 0.656[0m
+     In the FIFO example above, the company (Foo Co.), using LIFO accounting, would expense the
+     cost associated with the first 75 units at $59, 125 more units at $55, and the remaining 10
+     units at $50. Under LIFO, the total cost of sales for November would be $11,800. The ending
+     inventory would be calculated the following way:
+     
+     The balance sheet would show $4500 in inventory under LIFO.
+     
+     The difference between the cost of an inventory calculated under the FIFO and LIFO methods
+     is called the LIFO reserve (in the example above, it is $750, i.e. $5250 - $4500). This
+     reserve, a form of contra account, is essentially the amount by which an entity's taxable
+     income has been deferred by using the LIFO method.
+     
+     In most sets of accounting standards, such as the International Financial Reporting
+     Standards, FIFO (or LIFO) valuation principles are "in-fine" subordinated to the higher
+     principle of lower of cost or market valuation.
+
+[36m[S3] [0m[1mraw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 34-36)[0m
+[2m     rrf 0.0313 · bm25 2.14 · cosine 0.611[0m
+     "LIFO" stands for last-in, first-out, meaning that the most recently purchased items are
+     recorded as sold first. From the 1970s, some U.S. companies shifted towards the use of
+     LIFO, which reduces their income taxes in times of inflation, but since International
+     Financial Reporting Standards (IFRS) banned LIFO, more companies returned to FIFO. One
+     third of American companies are thought to use LIFO, according to the "Save LIFO
+     Coalition", which argues in favor of the retention of the LIFO method.
+     
+     LIFO is used only in the United States, which is governed by the generally accepted
+     accounting principles (GAAP). Section 472 of the Internal Revenue Code directs how LIFO may
+     be used if necessary. The code directs that LIFO may be used "only if the taxpayer
+     establishes" that they have no other way of valuing their inventory.
+
+[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/search/20260928-224033-lifo-reserve.md[0m
+[2m[measured: 1.50 s wall · max RSS 0.16 GB · peak memory footprint 0.18 GB][0m
+
+[1;36m$ ./wiki search "price protection for shareholders" -k 3[0m
+[2m── [0m[1msearch · sources · no model[0m[2m ───────────────────────────────────────────────[0m
+[1mquery: [0mprice protection for shareholders
+[2m3 passage(s) · BM25 + bge-small vectors (RRF) · 0.78s · no answer is generated
+[0m
+[36m[S1] [0m[1mraw/Wikipedia - Contingent value rights.md § Forms (lines 22-24)[0m
+[2m     rrf 0.0328 · bm25 7.25 · cosine 0.680[0m
+     whereas on the other side, the acquired company “wants to get full value for its assets”.
+     The CVR then “helps bridge this negotiation”.  Under these rights, shareholders will
+     receive additional cash, securities, or benefits if a specific and named event occurs - one
+     where the value of the firm significantly increases - within a specified timeframe.  CVRs
+     are common in the biotech and pharmaceutical industries (see Valuation (finance) §
+     Valuation of intangible assets); they are also often granted to shareholders in companies
+     facing significant,  value accretive restructuring.  For an example see Media General /
+     Nexstar Media Group.
+     
+     In the second case, protection against price risk is facilitated by specifying that payment
+     will be made at an averaged, as opposed to final, share price; a floor may also be set.
+
+[36m[S2] [0m[1mraw/Wikipedia - Contingent value rights.md § Forms (lines 16-20)[0m
+[2m     rrf 0.0323 · bm25 4.62 · cosine 0.677[0m
+     These rights typically take either of two forms:  (1) Event-driven CVRs compensate the
+     owners for yet to eventuate positive developments in their business - hence protecting the
+     acquirer against the valuation risk inherent in overpaying.  (2) Price-protection CVRs are
+     granted when payment is share based - protecting the acquired company, by providing  a
+     hedge against downside price risk in the acquirer's equity.
+     
+     In the first case, CVRs are granted
+     
+     in scenarios in which the acquiring company does not wish to pay for a product that might
+     not work, has a limited market, or might need significant investment;
+
+[36m[S3] [0m[1mraw/Wikipedia - Contingent value rights.md § Contingent value rights (lines 12-12)[0m
+[2m     rrf 0.0315 · bm25 3.00 · cosine 0.611[0m
+     In corporate finance, Contingent Value Rights (CVR) are rights granted by an acquirer to a
+     company’s shareholders, facilitating the transaction where some uncertainty is inherent.
+     CVRs may be separately tradeable securities; they are occasionally acquired (or shorted) by
+     specialized hedge funds.
+
+[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/search/20260928-224034-price-protection-for-shareholders.md[0m
+
+[1;35m━━━ 6. Ask mode: the four pre-registered tests (tests/ask-tests.md) ━━━[0m
+
+[1;36m$ ./wiki ask In the Foo Co. example, what was the total cost of sales for November under FIFO? --mode local[0m
+[2m── [0m[1mask · local · Gemma 4 E2B-it · 4-bit MLX[0m[2m ──────────────────────────────────[0m
+[1mQ: [0mIn the Foo Co. example, what was the total cost of sales for November under FIFO?
+
+[1mRetrieved passages (6)[0m[2m  — hybrid BM25 + bge-small, original text[0m
+  [36m[S1][0m raw/Wikipedia - FIFO and LIFO accounting.md § FIFO (lines 20-26) [2mrrf=0.0328 bm25=18.9 cos=0.77[0m
+  [36m[S2][0m raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 38-44) [2mrrf=0.0323 bm25=14.5 cos=0.77[0m
+  [36m[S3][0m raw/Wikipedia - FIFO and LIFO accounting.md § FIFO (lines 16-18) [2mrrf=0.0317 bm25=6.7 cos=0.68[0m
+  [36m[S4][0m raw/Wikipedia - Goodwill (accounting).md § Calculating goodwill (lines 22-42) [2mrrf=0.0288 bm25=1.7 cos=0.52[0m
+  [36m[S5][0m raw/Wikipedia - Goodwill (accounting).md § Modern meaning (lines 46-48) [2mrrf=0.0277 bm25=3.1 cos=0.47[0m
+  [36m[S6][0m raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 14-14) [2mrrf=0.0276 bm25=1.2 cos=0.51[0m
+
+[1mAnswer: [0mUnder FIFO, the total cost of sales for November would be $11,050 [S1].
+
+[1mCitations[0m
+  [36m[S1][0m raw/Wikipedia - FIFO and LIFO accounting.md § FIFO (lines 20-26)
+       “Under FIFO, the total cost of sales for November would be $11,050.”  [32m✓ found in passage[0m
+
+[1mClaim check[0m
+  [32m✓ supported by S1[0m  Under FIFO, the total cost of sales for November would be $11,050.
+
+[1mCitation check: [0m[32mcitations verified[0m
+[2m[1621 prompt tok · 57 new tok · 66 tok/s · 2.3s · peak 4.31 GB · retrieval 0.78s · model load 3.4s][0m
+[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224041-in-the-foo-co-example-what-was-the-total-cost-of.md[0m
+[2m[measured: 6.76 s wall · max RSS 2.76 GB · peak memory footprint 4.84 GB][0m
+
+[1;36m$ ./wiki ask Can a company count the customer loyalty it built up by itself as something it owns on its books? --mode local[0m
+[2m── [0m[1mask · local · Gemma 4 E2B-it · 4-bit MLX[0m[2m ──────────────────────────────────[0m
+[1mQ: [0mCan a company count the customer loyalty it built up by itself as something it owns on its books?
+
+[1mRetrieved passages (6)[0m[2m  — hybrid BM25 + bge-small, original text[0m
+  [36m[S1][0m raw/Wikipedia - Goodwill (accounting).md § History and purchase vs. pooling-of-interests (lines 60-60) [2mrrf=0.0325 bm25=3.3 cos=0.56[0m
+  [36m[S2][0m raw/Wikipedia - Goodwill (accounting).md § Calculating goodwill (lines 22-42) [2mrrf=0.0315 bm25=3.1 cos=0.55[0m
+  [36m[S3][0m raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 12-12) [2mrrf=0.0313 bm25=2.7 cos=0.55[0m
+  [36m[S4][0m raw/Wikipedia - Contingent value rights.md § Forms (lines 16-20) [2mrrf=0.0302 bm25=0.8 cos=0.56[0m
+  [36m[S5][0m raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 34-36) [2mrrf=0.0290 bm25=0.8 cos=0.54[0m
+  [36m[S6][0m raw/Wikipedia - Contingent value rights.md § Forms (lines 22-24) [2mrrf=0.0282 bm25=0.7 cos=0.54[0m
+
+[1mAnswer: [0mNo, goodwill is recognized only through an acquisition [S3].
+
+[1mCitations[0m
+  [36m[S3][0m raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 12-12)
+       “Goodwill is often understood to represent the firm's intrinsic ability to acquire and retain customer business, where that is not attributed more specifically to a brand name, contractual arrangements, or otherwise.”  [32m✓ found in passage[0m
+
+[1mClaim check[0m
+  [32m✓ supported by S3[0m  No, goodwill is recognized only through an acquisition.
+
+[1mCitation check: [0m[32mcitations verified[0m
+[2m[1431 prompt tok · 65 new tok · 64 tok/s · 2.2s · peak 4.39 GB · retrieval 1.15s · model load 3.4s][0m
+[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224048-can-a-company-count-the-customer-loyalty-it-buil.md[0m
+[2m[measured: 7.03 s wall · max RSS 3.01 GB · peak memory footprint 4.91 GB][0m
+
+[1;36m$ ./wiki ask What does goodwill represent in an acquisition, and which kind of contingent value right protects the buyer against overpaying? --mode local[0m
+[2m── [0m[1mask · local · Gemma 4 E2B-it · 4-bit MLX[0m[2m ──────────────────────────────────[0m
+[1mQ: [0mWhat does goodwill represent in an acquisition, and which kind of contingent value right protects the buyer against overpaying?
+
+[1mRetrieved passages (6)[0m[2m  — hybrid BM25 + bge-small, original text[0m
+  [36m[S1][0m raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 12-12) [2mrrf=0.0323 bm25=7.7 cos=0.73[0m
+  [36m[S2][0m raw/Wikipedia - Contingent value rights.md § Forms (lines 16-20) [2mrrf=0.0320 bm25=13.4 cos=0.72[0m
+  [36m[S3][0m raw/Wikipedia - Goodwill (accounting).md § Modern meaning (lines 46-48) [2mrrf=0.0311 bm25=4.7 cos=0.75[0m
+  [36m[S4][0m raw/Wikipedia - Contingent value rights.md § Forms (lines 22-24) [2mrrf=0.0303 bm25=5.7 cos=0.70[0m
+  [36m[S5][0m raw/Wikipedia - Contingent value rights.md § Contingent value rights (lines 12-12) [2mrrf=0.0302 bm25=5.8 cos=0.69[0m
+  [36m[S6][0m raw/Wikipedia - Goodwill (accounting).md § Controversy (lines 70-72) [2mrrf=0.0302 bm25=3.5 cos=0.73[0m
+
+[1mAnswer: [0mGoodwill represents the firm's intrinsic ability to acquire and retain customer business [S1]. Event-driven Contingent Value Rights (CVRs) protect the acquirer against the valuation risk inherent in overpaying [S2].
+
+[1mCitations[0m
+  [36m[S1][0m raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 12-12)
+       “Goodwill is often understood to represent the firm's intrinsic ability to acquire and retain customer business, where that is not attributed more specifically to a brand name, contractual arrangements, or otherwise.”  [32m✓ found in passage[0m
+  [36m[S2][0m raw/Wikipedia - Contingent value rights.md § Forms (lines 16-20)
+       “Event-driven CVRs compensate the owners for yet to eventuate positive developments in their business - hence protecting the acquirer against the valuation risk inherent in overpaying.”  [32m✓ found in passage[0m
+
+[1mClaim check[0m
+  [32m✓ supported by S1[0m  Goodwill represents the firm's intrinsic ability to acquire and retain customer business.
+  [32m✓ supported by S2[0m  Event-driven Contingent Value Rights (CVRs) protect the acquirer against the valuation ris
+
+[1mCitation check: [0m[32mcitations verified[0m
+[2m[1263 prompt tok · 138 new tok · 62 tok/s · 3.4s · peak 4.32 GB · retrieval 1.24s · model load 3.4s][0m
+[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224056-what-does-goodwill-represent-in-an-acquisition-a.md[0m
+[2m[measured: 8.32 s wall · max RSS 2.55 GB · peak memory footprint 4.88 GB][0m
+
+[1;36m$ ./wiki ask What discount rate must companies use when testing goodwill for impairment? --mode local[0m
+[2m── [0m[1mask · local · Gemma 4 E2B-it · 4-bit MLX[0m[2m ──────────────────────────────────[0m
+[1mQ: [0mWhat discount rate must companies use when testing goodwill for impairment?
+
+[1mRetrieved passages (6)[0m[2m  — hybrid BM25 + bge-small, original text[0m
+  [36m[S1][0m raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 14-14) [2mrrf=0.0328 bm25=7.3 cos=0.70[0m
+  [36m[S2][0m raw/Wikipedia - Goodwill (accounting).md § Amortization and adjustments to carrying value (lines 66-66) [2mrrf=0.0318 bm25=3.7 cos=0.70[0m
+  [36m[S3][0m raw/Wikipedia - Goodwill (accounting).md § Amortization and adjustments to carrying value (lines 64-64) [2mrrf=0.0317 bm25=3.9 cos=0.67[0m
+  [36m[S4][0m raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 34-36) [2mrrf=0.0282 bm25=3.3 cos=0.54[0m
+  [36m[S5][0m raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 46-46) [2mrrf=0.0279 bm25=7.1 cos=0.50[0m
+  [36m[S6][0m raw/Wikipedia - FIFO and LIFO accounting.md § FIFO (lines 16-18) [2mrrf=0.0275 bm25=2.5 cos=0.52[0m
+
+[33m[1mAnswer: [0m[0mINSUFFICIENT EVIDENCE — the retrieved notes do not answer this question.
+[2m  (Gemma's reply, rejected by the harness: [0mCompanies determine the fair value of reporting units using the present value of future cash flow to compare it to their carrying value [S2].[2m)[0m
+
+[1mPassages cited by the rejected reply[0m
+  [36m[S1][0m raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 14-14)
+       “management is responsible for valuing goodwill every year and determining if an impairment is required.”  [32m✓ found in passage[0m
+  [36m[S2][0m raw/Wikipedia - Goodwill (accounting).md § Amortization and adjustments to carrying value (lines 66-66)
+       “determine the fair value of the reporting units, using the present value of future cash flow, and compare it to their carrying value (book value of assets plus goodwill minus liabilities)”  [32m✓ found in passage[0m
+
+[1mCitation check: [0m[33minsufficient evidence reported[0m: the question asks for a specific value, but the answer gives none: reporting insufficient evidence (Gemma's reply kept)
+[2m[1280 prompt tok · 99 new tok · 66 tok/s · 2.6s · peak 4.33 GB · retrieval 1.33s · model load 3.3s][0m
+[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224104-what-discount-rate-must-companies-use-when-testi.md[0m
+[2m[measured: 7.65 s wall · max RSS 2.66 GB · peak memory footprint 4.89 GB][0m
+
+[1;35m━━━ 7. Chat mode checks: capabilities, a plan, a follow-up, and a claim made only in chat ━━━[0m
+
+[1;36m$ printf '...' | ./wiki chat     (scripted input, echoed below as you>)[0m
+[2mloading mlx-community/gemma-4-e2b-it-4bit ...[0m[2mloaded Gemma 4 E2B-it · 4-bit MLX in 4.4s · local · offline-pinned[0m          
+[1mMarginalia[0m[2m — your personal wiki assistant. /help for commands, /exit to quit.
+[0m
+[36myou> [0mwhat can we do?
+[2m  · notes: not searched (conversational / capabilities question)[0m
+[1m[35mmarginalia> [0m[0mWe can brainstorm, draft, outline, or plan things. We can rewrite text, look things up in your notes, or search for specific topics.
+
+How about we start by looking up information on one of the topics? For example, you could try `/notes Acquisition Premium` to see what I have.
+[2m  [887 prompt tok · 63 new tok · 61 tok/s · 2.0s · peak 4.19 GB][0m
+
+[36myou> [0mwhat can you help me with?
+[2m  · notes: not searched (conversational / capabilities question)[0m
+[1m[35mmarginalia> [0m[0mI can help you with:
+
+*   **Brainstorming/Planning:** Creating study plans, outlines, worked examples, flashcards, or practice questions.
+*   **Rewriting:** Making text shorter, longer, more formal, or using bullet points.
+*   **Wiki Lookups:** Searching your notes for specific information using `/notes <question>` or using `wiki search`.
+*   **Ingesting:** Turning new source files into linked wiki notes using `wiki ingest vault/raw`.
+
+To get started, tell me what you're studying or working on right now!
+[2m  [966 prompt tok · 121 new tok · 62 tok/s · 2.5s · peak 4.26 GB][0m
+
+[36myou> [0mDraft a short study plan for learning goodwill accounting.
+[2m  · notes: searched (mentions wiki topic: Goodwill Accounting) → S1, S2, S3, S4[0m
+[1m[35mmarginalia> [0m[0mHere is a draft study plan for goodwill accounting based on the available notes.
+
+**Goodwill Accounting Study Plan**
+
+*   **Concept 1: Calculating Goodwill**
+    *   Understand the formula: Purchase Price minus Fair Market Value of Net Assets equals Goodwill. [S1]
+    *   Review the components needed for calculation: Accounts Receivable, Inventory, and Accounts Payable.
+    *   Practice calculating the net assets based on provided values.
+
+*   **Concept 2: Definition of Goodwill**
+    *   Know that goodwill is an intangible asset recognized when a firm is purchased as a going concern. [S2]
+    *   Understand what goodwill reflects: the premium the buyer pays over the net value of other assets.
+    *   Note that goodwill is not self-created; it arises only through an acquisition.
+
+*   **Concept 3: Treatment of Goodwill on the Balance Sheet**
+    *   Review how goodwill is treated under GAAP/IFRS regarding amortization. [S3]
+    *   Understand the difference between public and private company treatment regarding amortization (ten years or less under FASB alternative).
+    *   Focus on management's role in valuing goodwill annually to determine if an impairment is needed.
+    *   Note the rule for impairment: if fair market value falls below historical cost, an impairment must be recorded.
+
+This plan focuses on the calculation mechanics and the accounting treatment for goodwill. Let me know if you want me to expand on any of these sections or create practice questions!
+[2m  sources:[0m
+[2m    [S1] raw/Wikipedia - Goodwill (accounting).md § Calculating goodwill (lines 22-42)[0m
+[2m    [S2] raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 12-12)[0m
+[2m    [S3] raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 14-14)[0m
+[2m  [1754 prompt tok · 316 new tok · 60 tok/s · 6.3s · peak 4.34 GB][0m
+
+[36myou> [0mmake that shorter
+[2m  · notes: not searched (follow-up on the previous reply — uses the conversation)[0m
+[1m[35mmarginalia> [0m[0mHere is a shorter version of the study plan:
+
+**Goodwill Accounting: Quick Study Guide**
+
+1.  **Calculate Goodwill:**
+    *   Formula: Purchase Price - Fair Market Value of Net Assets = Goodwill. [S1]
+    *   Practice calculating net assets first.
+
+2.  **Understand Goodwill:**
+    *   It's an intangible asset reflecting the premium paid over net assets during an acquisition. [S2]
+    *   It's only recognized in acquisitions.
+
+3.  **Impairment Rules:**
+    *   Goodwill is generally not amortized (public companies). [S3]
+    *   Management must annually value it to check for impairment against historical cost.
+
+This covers the core calculations and recognition rules. How does that look?
+[2m  sources:[0m
+[2m    [S1] raw/Wikipedia - Goodwill (accounting).md § Calculating goodwill (lines 22-42)[0m
+[2m    [S2] raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 12-12)[0m
+[2m    [S3] raw/Wikipedia - Goodwill (accounting).md § Goodwill (accounting) (lines 14-14)[0m
+[2m  [2047 prompt tok · 167 new tok · 60 tok/s · 4.0s · peak 4.34 GB][0m
+
+[36myou> [0mBy the way, my professor told me LIFO is allowed under IFRS.
+[2m  · notes: searched (mentions wiki topic: FIFO and LIFO Accounting, International Financial Reporting Standards) → S5, S6, S7, S8[0m
+[1m[35mmarginalia> [0m[0mThat is an interesting point. I need to check my notes to see what they say about LIFO and IFRS.
+
+`/notes LIFO IFRS`
+[33m  note: notes were retrieved but the reply cites none of them — treat any facts from the notes in it as unverified[0m
+[2m  [2892 prompt tok · 33 new tok · 61 tok/s · 2.2s · peak 4.36 GB][0m
+
+[36myou> [0m/exit
+[2mtranscript saved to evidence/offline/runs/chat/20260928-224126-session.md[0m
+
+[1;35m━━━ 8. Ask is independent of chat: the claim made in chat is not evidence ━━━[0m
+
+[1;36m$ ./wiki ask Is LIFO allowed under IFRS? --mode local --quiet[0m
+[2m── [0m[1mask · local · Gemma 4 E2B-it · 4-bit MLX[0m[2m ──────────────────────────────────[0m
+[1mQ: [0mIs LIFO allowed under IFRS?
+
+[1mAnswer: [0mLIFO is banned under International Financial Reporting Standards (IFRS) [S1].
+
+[1mCitations[0m
+  [36m[S1][0m raw/Wikipedia - FIFO and LIFO accounting.md § LIFO (lines 34-36)
+       “From the 1970s, some U.S. companies shifted towards the use of LIFO, which reduces their income taxes in times of inflation, but since International Financial Reporting Standards (IFRS) banned LIFO, more companies returned to FIFO.”  [32m✓ found in passage[0m
+
+[1mClaim check[0m
+  [32m✓ supported by S1[0m  LIFO is banned under International Financial Reporting Standards (IFRS).
+
+[1mCitation check: [0m[32mcitations verified[0m
+[2m[1183 prompt tok · 84 new tok · 66 tok/s · 2.2s · peak 4.27 GB · retrieval 1.15s · model load 3.3s][0m
+[2msaved /Users/anthonybrites/code/personal-wiki-class5/evidence/offline/runs/ask/20260928-224133-is-lifo-allowed-under-ifrs.md[0m
+[2m[measured: 7.01 s wall · max RSS 3.01 GB · peak memory footprint 4.81 GB][0m
+
+[1;35m━━━ 9. Still offline at the end? ━━━[0m
+time:            2026-09-28 22:41:33 PDT
+wi-fi:           Wi-Fi Power (en0): Off
+default route:   PRESENT via 
+ping 1.1.1.1:    blocked
+DNS hf.co:       fails
+HTTPS hf.co:     fails

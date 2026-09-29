@@ -58,7 +58,7 @@ kept **unchanged** in [`vault/raw/`](vault/raw/):
 | Original (unchanged) | Revision | Words | Markdown copy the harness reads | Wiki note |
 |---|---|---|---|---|
 | `raw/Wikipedia - FIFO and LIFO accounting.txt` | [1324617022](https://en.wikipedia.org/w/index.php?oldid=1324617022) | 736 | [`.md`](vault/raw/Wikipedia%20-%20FIFO%20and%20LIFO%20accounting.md) | [FIFO and LIFO Accounting](vault/wiki/Articles/FIFO%20and%20LIFO%20Accounting.md) |
-| `raw/Wikipedia - Goodwill (accounting).txt` | [1367469269](https://en.wikipedia.org/w/index.php?oldid=1367469269) | 1,288 | [`.md`](vault/raw/Wikipedia%20-%20Goodwill%20(accounting).md) | [Goodwill Accounting](vault/wiki/Articles/Goodwill%20Accounting.md) |
+| `raw/Wikipedia - Goodwill (accounting).txt` | [1367469269](https://en.wikipedia.org/w/index.php?oldid=1367469269) | 1,288 | [`.md`](vault/raw/Wikipedia%20-%20Goodwill%20%28accounting%29.md) | [Goodwill Accounting](vault/wiki/Articles/Goodwill%20Accounting.md) |
 | `raw/Wikipedia - Contingent value rights.txt` | [1369971399](https://en.wikipedia.org/w/index.php?oldid=1369971399) | 410 | [`.md`](vault/raw/Wikipedia%20-%20Contingent%20value%20rights.md) | [Contingent Value Rights](vault/wiki/Articles/Contingent%20Value%20Rights.md) |
 
 **How originals connect to generated pages.**
@@ -163,7 +163,7 @@ Markdown.
 | | |
 |---|---|
 | Machine | MacBook Air, **Apple M4** (10-core CPU: 4 performance + 6 efficiency; 8-core GPU, Metal 4) |
-| Memory | **16 GB unified** (CPU and GPU share it; no separate VRAM). At the offline run: ⟨OFFLINE:memfree⟩ |
+| Memory | **16 GB unified** (CPU and GPU share it; no separate VRAM). At the offline run: 63% of memory free (`memory_pressure`) and 15 GB of free disk |
 | OS | macOS 26.3.1 (25D2128) |
 | Disk | 228 GB SSD, about 15 GB free (this Mac runs nearly full, which ruled out downloading several model sizes) |
 | Runtime | Python 3.11.2, MLX 0.32.2 + mlx-vlm 0.7.2 (Metal GPU), mlx-embeddings 0.1.0 |
@@ -187,9 +187,9 @@ footprint" includes GPU memory, which max RSS does not):
 
 | Operation | Wall time | Peak memory footprint | Notes |
 |---|---|---|---|
-| `wiki ingest vault/raw --force` (3 articles) | ⟨OFFLINE:ingest-time⟩ | ⟨OFFLINE:ingest-mem⟩ | 3 Gemma calls, ~1k–3k prompt tokens each |
-| `wiki ask` (one RAG answer, including a ~3.5 s model load) | ⟨OFFLINE:ask-time⟩ | ⟨OFFLINE:ask-mem⟩ | ~1.5k–2k prompt tokens, ~65 tok/s generation |
-| `wiki search` (no model) | ⟨OFFLINE:search-time⟩ | ⟨OFFLINE:search-mem⟩ | BM25 + bge vectors |
+| `wiki ingest vault/raw --force` (3 articles) | 26.9 s | 6.30 GB | 3 Gemma calls, ~1k–3k prompt tokens each |
+| `wiki ask` (one RAG answer, including a ~3.5 s model load) | 6.8–8.3 s (4 tests) | 4.84–4.91 GB | ~1.5k–2k prompt tokens, ~65 tok/s generation |
+| `wiki search` (no model) | 1.50 s | 0.18 GB | BM25 + bge vectors |
 | `wiki chat` turn | 2–7 s per reply | MLX peak ~4.4 GB | model loaded once per session |
 
 An early version of ingestion reached a **12.4 GB** peak footprint: MLX kept freed GPU
@@ -422,7 +422,7 @@ starts a new `./wiki` process for each step.
   [`terminal.typescript`](evidence/offline/terminal.typescript) is the same session
   recorded by `script(1)`, with colours.
 - [`evidence/offline/runs/`](evidence/offline/runs/): every saved record from that run.
-- ⟨OFFLINE:screenshots⟩
+- [`evidence/screenshots/offline-terminal-end.png`](evidence/screenshots/offline-terminal-end.png): the Terminal panel at the end of the run. It shows the last ask, the closing air-gap check (Wi-Fi off; ping, DNS and HTTPS all failing), and "Offline demo finished (exit 0)". While Wi-Fi was off, `route` still printed a default-route entry with no interface, so the three reachability checks are the ground truth.
 
 ### Ask-mode tests (four questions)
 
@@ -432,12 +432,12 @@ the vault, so the harness never sees the answer key.
 
 | Test | Question | Expected | Retrieval | Answer | Citation check | Card |
 |---|---|---|---|---|---|---|
-| 1 direct | In the Foo Co. example, what was the total cost of sales for November under FIFO? | $11,050 (distractor: LIFO $11,800) | ⟨OFFLINE:t1r⟩ | ⟨OFFLINE:t1a⟩ | ⟨OFFLINE:t1c⟩ | [test-1](evidence/ask/test-1.md) |
-| 2 reworded | Can a company count the customer loyalty it built up by itself as something it owns on its books? | No: goodwill arises only through an acquisition | ⟨OFFLINE:t2r⟩ | ⟨OFFLINE:t2a⟩ | ⟨OFFLINE:t2c⟩ | [test-2](evidence/ask/test-2.md) |
-| 3 two sources | What does goodwill represent in an acquisition, and which kind of contingent value right protects the buyer against overpaying? | premium over net assets; event-driven CVRs | ⟨OFFLINE:t3r⟩ | ⟨OFFLINE:t3a⟩ | ⟨OFFLINE:t3c⟩ | [test-3](evidence/ask/test-3.md) |
-| 4 unanswerable | What discount rate must companies use when testing goodwill for impairment? | insufficient evidence (no rate given) | ⟨OFFLINE:t4r⟩ | ⟨OFFLINE:t4a⟩ | ⟨OFFLINE:t4c⟩ | [test-4](evidence/ask/test-4.md) |
+| 1 direct | In the Foo Co. example, what was the total cost of sales for November under FIFO? | $11,050 (distractor: LIFO $11,800) | ✓ at S1, with the LIFO distractor at S2 | "Under FIFO, the total cost of sales for November would be $11,050 [S1]" | ok | [test-1](evidence/ask/test-1.md) |
+| 2 reworded | Can a company count the customer loyalty it built up by itself as something it owns on its books? | No: goodwill arises only through an acquisition | ✓ "cannot be self-created" lead at S3, despite almost no shared words | "No, goodwill is recognized only through an acquisition [S3]" | ok | [test-2](evidence/ask/test-2.md) |
+| 3 two sources | What does goodwill represent in an acquisition, and which kind of contingent value right protects the buyer against overpaying? | premium over net assets; event-driven CVRs | ✓ both (goodwill lead S1, CVR Forms S2) | event-driven CVRs ✓; goodwill as "the firm's intrinsic ability to acquire and retain customer business" (true, from S1, but not the premium definition I expected) | ok | [test-3](evidence/ask/test-3.md) |
+| 4 unanswerable | What discount rate must companies use when testing goodwill for impairment? | insufficient evidence (no rate given) | impairment passages only; none gives a rate | **INSUFFICIENT EVIDENCE**, reported by the harness: Gemma's reply described fair-value testing but gave no rate | insufficient (value-question rule) | [test-4](evidence/ask/test-4.md) |
 
-⟨OFFLINE:testsummary⟩ Each card has the expectation, every retrieved passage in full (the
+**Result: all four pass.** Test 3 chose a different, still-correct sentence for goodwill. On test 4 it was the **harness**, not Gemma, that recognized the missing evidence (see the [reflection](#reflection-one-real-failure-and-what-id-change)). Each card has the expectation, every retrieved passage in full (the
 expected ones are marked), Gemma's verbatim answer, the automatic checks, timing and
 memory, and my own assessment after opening the cited passages.
 
@@ -453,7 +453,13 @@ memory, and my own assessment after opening the cited passages.
   which a fresh `wiki ask "Is LIFO allowed under IFRS?"` answers from the source, not the
   claim
 
-⟨OFFLINE:modesummary⟩
+All five checks passed offline:
+
+- **Capabilities:** no search, accurate capabilities.
+- **Study plan:** retrieval limited to the goodwill article, with every cited fact checked by hand.
+- **"make that shorter":** no search, same citations.
+- **Search:** passages only, 0.18 GB.
+- **False chat claim:** never became evidence. `wiki ask` answered "LIFO is banned under IFRS [S1]". But chat itself only suggested a `/notes` lookup instead of correcting the claim from the passages it already had, which is a weak spot for a tutor.
 
 ### Development history (kept, not hidden)
 
@@ -471,7 +477,53 @@ memory, and my own assessment after opening the cited passages.
 
 ## Reflection: one real failure, and what I'd change
 
-⟨OFFLINE:reflection⟩
+**The failure: a well-cited answer to a *different* question.**
+
+In the online rehearsal, test 4 asked *"What discount rate must companies use when testing
+goodwill for impairment?"*. Gemma answered: *"Companies determine the fair value of
+reporting units using the present value of future cash flow … [S2]"*. That sentence is
+true, and it's quoted from the right article, so every check I had passed it: the quote
+exists, the claim is supported, and the numbers match. But it doesn't give a rate, because
+the article never states one. The same pattern appears elsewhere:
+
+- **Test 3 (offline):** Gemma answered "what does goodwill represent" with the article's
+  "intrinsic ability to acquire and retain customer business" rather than the premium
+  definition. That's true, but it's not the most precise answer.
+- **Ingestion:** Gemma wrote "companies may amortize goodwill" and dropped the
+  "*private US*" qualifier ([`evidence/wiki-review.md`](evidence/wiki-review.md)).
+
+**Cause, as far as I can tell.** Gemma 4 E2B tends to copy the passage span that best
+matches the question's *words*: "testing goodwill for impairment" matches the
+impairment-procedure sentence. When the specific fact asked for isn't there, it doesn't
+refuse; it answers the nearest question it can. My automatic checks verify that an answer
+is *supported*, not that it is *responsive*.
+
+**What I changed.**
+
+- I first tried a second Gemma call as a relevance judge. It rejected the correct answer
+  to test 2 and, with a reworded prompt, accepted a non-answer it had rejected before.
+  I dropped it ([`evidence/prompt-history/`](evidence/prompt-history/)).
+- The harness now uses a deterministic rule instead: if a question asks for a specific
+  value (a rate, a number, a date, "how many") and the answer contains none, it reports
+  *insufficient evidence* and keeps Gemma's reply for inspection. That made test 4 pass
+  offline.
+- But the rule only covers value questions. A well-cited answer to a related "why" or
+  "how" question would still pass.
+
+**Next improvement to try: extract the answer type before answering.** Before calling
+Gemma, the harness would classify what the question asks for: a value, a yes/no, a
+definition, a list, or a comparison. It already has the rule patterns to start from. It
+would then:
+
+1. check the answer has that shape: a number for value questions, yes/no first for yes/no
+   questions, one item per part for two-part questions like test 3;
+2. for "definition" questions, prefer the passage sentence that uses defining language
+   ("reflects", "is recognized when", "is defined as") over one that merely shares words.
+
+I'd measure it on the four tests plus a larger held-out set of 20 questions written the
+same way, and count both wrong refusals and responsive-but-wrong answers. A second
+experiment would be to rerun the same tests on Gemma 4 E4B, to see how much of the
+"nearest question" behaviour is model size.
 
 ---
 
