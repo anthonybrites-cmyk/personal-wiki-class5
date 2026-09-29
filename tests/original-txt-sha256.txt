@@ -1,0 +1,3 @@
+ed67c3845cb325fbba21170b9a2c5232b4055c71f0087a1a567d3bd87e832aa4  vault/raw/Contingent value rights.txt
+ac7fa7f082deb49a7e08592b486d358a6215facebf4b37272c126f10acf6eec3  vault/raw/FIFO and LIFO accounting.txt
+fa60da3ade7163f800887e0c1d8c741cdc5af0c7c0810f59725a6d7a1e89aa13  vault/raw/Goodwill (accounting).txt

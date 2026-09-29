@@ -1,0 +1,41 @@
+[
+  {
+    "file": "raw/Contingent value rights.txt",
+    "title": "Contingent value rights",
+    "url": "https://en.wikipedia.org/wiki/Contingent_value_rights",
+    "revision_id": 1369971399,
+    "revision_timestamp": "2026-08-18T09:15:27Z",
+    "permalink": "https://en.wikipedia.org/w/index.php?oldid=1369971399",
+    "history": "https://en.wikipedia.org/w/index.php?title=Contingent_value_rights&action=history",
+    "license": "CC BY-SA 4.0",
+    "sha256": "ed67c3845cb325fbba21170b9a2c5232b4055c71f0087a1a567d3bd87e832aa4",
+    "words": 410,
+    "retrieved": "2026-09-28 via the MediaWiki API (prop=extracts, explaintext=1, exsectionformat=wiki)"
+  },
+  {
+    "file": "raw/FIFO and LIFO accounting.txt",
+    "title": "FIFO and LIFO accounting",
+    "url": "https://en.wikipedia.org/wiki/FIFO_and_LIFO_accounting",
+    "revision_id": 1324617022,
+    "revision_timestamp": "2025-11-28T18:05:40Z",
+    "permalink": "https://en.wikipedia.org/w/index.php?oldid=1324617022",
+    "history": "https://en.wikipedia.org/w/index.php?title=FIFO_and_LIFO_accounting&action=history",
+    "license": "CC BY-SA 4.0",
+    "sha256": "ac7fa7f082deb49a7e08592b486d358a6215facebf4b37272c126f10acf6eec3",
+    "words": 736,
+    "retrieved": "2026-09-28 via the MediaWiki API (prop=extracts, explaintext=1, exsectionformat=wiki)"
+  },
+  {
+    "file": "raw/Goodwill (accounting).txt",
+    "title": "Goodwill (accounting)",
+    "url": "https://en.wikipedia.org/wiki/Goodwill_(accounting)",
+    "revision_id": 1367469269,
+    "revision_timestamp": "2026-08-03T07:23:52Z",
+    "permalink": "https://en.wikipedia.org/w/index.php?oldid=1367469269",
+    "history": "https://en.wikipedia.org/w/index.php?title=Goodwill_(accounting)&action=history",
+    "license": "CC BY-SA 4.0",
+    "sha256": "fa60da3ade7163f800887e0c1d8c741cdc5af0c7c0810f59725a6d7a1e89aa13",
+    "words": 1288,
+    "retrieved": "2026-09-28 via the MediaWiki API (prop=extracts, explaintext=1, exsectionformat=wiki)"
+  }
+]

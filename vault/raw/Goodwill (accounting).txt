@@ -1,0 +1,70 @@
+Goodwill (accounting)
+
+In accounting, goodwill is an intangible asset recognized when a firm is purchased as a going concern. It reflects the premium the buyer pays over the net value of its other assets. Goodwill is often understood to represent the firm's intrinsic ability to acquire and retain customer business, where that is not attributed more specifically to a brand name, contractual arrangements, or otherwise. It is recognized only through an acquisition; it cannot be self-created. It is classified as an intangible asset on the balance sheet because it cannot be seen or touched.
+Under U.S. GAAP and IFRS, goodwill is never amortized for public companies, because it is considered to have an indefinite useful life. On the other hand, private companies in the United States may elect to amortize goodwill over a period of ten years or less under an accounting alternative from the Private Company Council of the FASB. Instead, management is responsible for valuing goodwill every year and determining if an impairment is required. If the fair market value falls below the historical cost (the amount for which goodwill was purchased), an impairment must be recorded to adjust it down to fair market value. However, an increase in fair market value would not be recognized in this way, and may instead be attributed to other assets.
+
+
+== Origins ==
+The concept of commercial goodwill developed together with the capitalist economy. In England, contracts from the 15th century onward refer to the purchase and conveyance of goodwill, roughly meaning the transfer of continuing business, as distinguished from the transfer of business property. Such agreements were initially unenforceable under the restraint of trade doctrine, which held that one could not claim property in business activity, until Broad v. Jolyffe (1620) established that restraints could be legal in exceptional cases. John Scott, 1st Earl of Eldon defined the concept succinctly in 1810 as "the probability that the old customers will resort to the old place."
+
+
+== Calculating goodwill ==
+To calculate goodwill, the fair market value of the acquired company's identifiable assets and liabilities is deducted from the purchase price. For instance, if company A acquired 100% of company B but paid more than company B's net market value, goodwill arises. To calculate goodwill, it is necessary to have a list of all of company B's assets and liabilities at fair market value.
+
+                        Fair market value
+  Accounts Receivable   $10
+  Inventory              $5
+  Accounts payable       $6
+  -------------------------
+  Total Net assets    = $10 + $5 - $6 
+                      =  $9
+
+To acquire company B, company A paid $20. Hence, goodwill would be $11 ($20 − $9). The journal entry in the books of company A to record the acquisition of company B would be: 
+
+  DR Goodwill             $11
+  DR Accounts Receivable  $10
+  DR Inventory             $5
+  CR Accounts Payable      $6
+  CR Cash                 $20
+
+
+== Modern meaning ==
+Goodwill is a special type of intangible asset that represents the portion of a business's value not attributable to other income-producing assets, tangible or intangible.
+For example, a privately held software company may have net assets (consisting primarily of miscellaneous equipment and/or property, and assuming no debt) valued at $1 million. Still, the company's overall value (including customers and intellectual capital) is valued at $10 million. Anybody buying that company would book $10 million in total assets acquired, comprising $1 million in physical assets and $9 million in other intangible assets. And any consideration paid in excess of $10 million shall be considered as goodwill. In a private company, goodwill has no predetermined value before the acquisition; its magnitude depends on the other two variables by definition. A publicly traded company, by contrast, is subject to a constant process of market valuation, so goodwill will always be apparent.
+While a business can invest to increase its reputation by advertising or assuring that its products are of high quality, such expenses cannot be capitalized and added to goodwill, which is technically an intangible asset. Goodwill and intangible assets are usually listed as separate items on a company's balance sheet. In the b2b sense, goodwill may account for the criticality that exists between partners engaged in a supply chain relationship, or other forms of business relationships, where unpredictable events may cause volatilities across entire markets.
+
+
+== Types of goodwill ==
+There are two types of goodwill: institutional (enterprise) and professional (personal). Institutional goodwill may be described as the intangible value that would continue to accrue to the business in the absence of a specific owner. Professional goodwill may be described as the intangible value attributable solely to the efforts of or reputation of an owner of the business. The key difference between the two types of goodwill is whether the goodwill is transferable upon a sale to a third party without a non-competition agreement.
+
+
+== United States practice ==
+
+
+=== History and purchase vs. pooling-of-interests ===
+Previously, companies could structure many acquisition transactions to choose between two accounting methods for recording a business combination: purchase accounting or pooling-of-interests accounting. The pooling-of-interests method combined the book values of the assets and liabilities of the two companies to create the new combined balance sheet. It therefore did not distinguish between who is buying whom. It also did not record the price the acquiring company paid for the acquisition. Since 2001, U.S. Generally Accepted Accounting Principles (FAS 141) no longer allows the pooling-of-interests method.
+
+
+=== Amortization and adjustments to carrying value ===
+Goodwill is no longer amortized under U.S. GAAP (FAS 142). FAS 142 was issued in June 2001. Companies objected to the removal of the option to use pooling-of-interests, so the Financial Accounting Standards Board removed amortization as a concession. As of 2005-01-01, it is also forbidden under International Financial Reporting Standards. Goodwill can now only be impaired under these GAAP standards.
+Instead of deducting the value of goodwill annually over a period of a maximum of 40 years, companies are now required to determine the fair value of the reporting units, using the present value of future cash flow, and compare it to their carrying value (book value of assets plus goodwill minus liabilities) If the fair value is less than carrying value (impaired), the goodwill value needs to be reduced. Hence, the carrying value equals the fair value. The impairment loss is reported as a separate line item on the income statement, and the new adjusted value of goodwill is reported in the balance sheet.
+
+
+=== Controversy ===
+When the business is threatened with insolvency, investors will deduct the goodwill from any calculation of residual equity because it has no resale value.
+The accounting treatment for goodwill remains controversial within both the accounting and financial industries because it is fundamentally a workaround employed by accountants to compensate for the fact that businesses, when purchased, are valued based on estimates of future cash flows and prices negotiated by the buyer and seller, and not on the fair value of assets and liabilities to be transferred by the seller. This creates a mismatch between the reported assets and net incomes of companies that have grown without purchasing other companies and those that have.
+While companies will follow the rules prescribed by the Accounting Standards Board, there is no fundamentally correct way to deal with this mismatch under the current financial reporting framework. Therefore, the accounting for goodwill will be rules-based; those rules have changed and can be expected to continue to change periodically, along with changes in the members of the Accounting Standards Board. The current rules governing the accounting treatment of goodwill are highly subjective, can result in very high costs, and have limited value to investors.
+
+
+== See also ==
+Business valuation
+Consolidation (business)
+Control premium
+Divestment
+Enterprise value
+Mergers and acquisitions
+Outline of accounting
+Subsidiary
+
+
+== References ==

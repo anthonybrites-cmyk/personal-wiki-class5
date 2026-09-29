@@ -1,0 +1,9 @@
+# Apple Silicon (MLX) runtime for Gemma 4 E2B + local embeddings.
+# Pinned to the versions this project was built and tested with.
+mlx==0.32.2
+mlx-vlm==0.7.2          # Gemma 4 is multimodal, so it loads through mlx-vlm, not mlx-lm
+mlx-embeddings==0.1.0   # runs bge-small-en-v1.5 locally for the vector half of retrieval
+transformers==5.17.0
+huggingface_hub==1.32.0
+numpy==2.4.6
+pyyaml==6.0.3            # wiki note frontmatter

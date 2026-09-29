@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Launcher for the personal wiki CLI: ./wiki <command> ...  (see ./wiki --help)
+set -euo pipefail
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ ! -x "$DIR/.venv/bin/python" ]; then
+  echo "error: no virtualenv at $DIR/.venv — run the Setup steps in README.md first" >&2
+  exit 1
+fi
+cd "$DIR"
+exec "$DIR/.venv/bin/python" -m harness "$@"
