@@ -204,6 +204,7 @@ class ChatSession:
 
 
 def run(index: Index, gemma: LocalGemma) -> int:
+    prompts.load_instructions(config.PERSONA_MD)  # fail fast, before loading the model
     interactive = sys.stdin.isatty()
     print(ui.dim(f"loading {config.GEMMA_ID} ..."), end="", flush=True)
     t0 = time.perf_counter()

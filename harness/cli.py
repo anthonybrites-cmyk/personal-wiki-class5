@@ -90,10 +90,13 @@ def build_parser() -> argparse.ArgumentParser:
 def cmd_search(args) -> int:
     from .retrieval import Index
     index = Index.load()
+    index.allow_keyword_fallback = True  # search must work even without the embedding model
     kinds = {"sources": ("source",), "wiki": ("wiki",), "all": ("source", "wiki")}[args.scope]
     t0 = time.perf_counter()
     hits = index.search(args.query, k=args.k, kinds=kinds)
     secs = time.perf_counter() - t0
+    if index.fallback_reason:
+        print(ui.yellow("note: ") + index.fallback_reason + " Searching with keywords (BM25) only.")
     print(ui.rule(f"search · {args.scope} · no model"))
     print(ui.bold("query: ") + args.query)
     mode = "BM25 + bge-small vectors (RRF)" if index.embeddings is not None else "BM25 only"
@@ -153,6 +156,10 @@ def cmd_ingest(args) -> int:
     from .convert import convert_all
     from .ingest import Ingestor
     from .llm import LocalGemma
+    missing = [str(p) for p in args.paths if not p.exists()]
+    if missing:
+        raise FileNotFoundError(f"source path not found: {', '.join(missing)} "
+                                "(put .md or .txt files in vault/raw/)")
     gemma = LocalGemma()
     print(ui.rule("ingest · local · " + config.GEMMA_LABEL))
     for c in convert_all([p.resolve() for p in args.paths]):

@@ -74,8 +74,16 @@ class Embedder:
         from huggingface_hub import snapshot_download
         from mlx_embeddings import load
         if cls._model is None:
-            path = snapshot_download(config.EMBED_ID, revision=config.EMBED_REVISION,
-                                     local_files_only=True)
+            try:
+                path = snapshot_download(config.EMBED_ID, revision=config.EMBED_REVISION,
+                                         local_files_only=True)
+            except Exception as e:
+                from .llm import ModelUnavailable
+                raise ModelUnavailable(
+                    f"Local embedding model {config.EMBED_ID} (revision {config.EMBED_REVISION[:7]}) "
+                    "is not in the Hugging Face cache.\n  While online, download it once with:\n"
+                    f"    .venv/bin/hf download {config.EMBED_ID} --revision {config.EMBED_REVISION}\n"
+                    f"  ({type(e).__name__})") from e
             cls._model, cls._tok = load(path)
         vecs = []
         for i in range(0, len(texts), batch):
@@ -107,6 +115,9 @@ class Index:
     passages: list[Passage]
     embeddings: np.ndarray | None
     bm25: BM25 = field(init=False)
+
+    allow_keyword_fallback: bool = False   # search may degrade to BM25; ask/chat may not
+    fallback_reason: str = ""
 
     def __post_init__(self):
         self.bm25 = BM25([tokenize(p.search_text()) for p in self.passages])
@@ -153,11 +164,17 @@ class Index:
         if not keep:
             return []
         bm = self.bm25.scores(tokenize(query))[keep]
+        vec = np.zeros(len(keep))
         if self.embeddings is not None:
-            q = Embedder.encode([config.EMBED_QUERY_PREFIX + query])[0]
-            vec = self.embeddings[keep] @ q
-        else:
-            vec = np.zeros(len(keep))
+            from .llm import ModelUnavailable
+            try:
+                q = Embedder.encode([config.EMBED_QUERY_PREFIX + query])[0]
+                vec = self.embeddings[keep] @ q
+            except ModelUnavailable as e:
+                if not self.allow_keyword_fallback:
+                    raise
+                self.fallback_reason = str(e).splitlines()[0]
+                self.embeddings = None  # keywords only for the rest of this process
 
         # Reciprocal-rank fusion: robust to the two scores living on different scales.
         fused = np.zeros(len(keep))
