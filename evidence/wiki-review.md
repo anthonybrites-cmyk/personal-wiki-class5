@@ -50,7 +50,7 @@ wins.
 | Intangible Asset | **Tautology:** "Intangible assets are assets that are not tangible." | Replaced with the article's own reason (cannot be seen or touched), and the biotech/pharma link to CVRs. |
 | Cost of Goods Sold | Mixed in the FIFO *balance-sheet inventory* value, which isn't COGS. | FIFO vs LIFO cost of sales, and the rising-price effect. |
 | US GAAP | **Uncited generic opener:** "US GAAP is a set of accounting principles that governs certain practices." | Four cited facts across both articles. |
-| FASB | **Stated beyond the source:** "the body that issues accounting standards". Then it attributed the "highly subjective" rules criticism to FASB, when the article says it of the Accounting Standards Board's rules. | Two cited facts: FASB removed amortization as a concession; the Private Company Council alternative. |
+| FASB | **Stated beyond the source:** "the body that issues accounting standards". It also placed the article's criticism that goodwill rules are "highly subjective" in the FASB note. The article says that of rules from "the Accounting Standards Board" and never names FASB there. | Two cited facts: FASB removed amortization as a concession; the Private Company Council alternative. |
 | Acquisition Premium, IFRS, Save LIFO Coalition | Accurate but thin or awkward. | Tightened, each sentence cited. |
 | Impairment Testing, LIFO Reserve, Option Pricing | Accurate. | Kept Gemma's text. Wrote index descriptions. |
 
@@ -70,7 +70,7 @@ Its errors were:
 
 - **Dropped qualifiers:** "companies" instead of "private companies in the United States".
 - **Framing a study text as having a "conclusion".**
-- **Attaching a statement to the wrong actor:** FASB and the "subjective rules" criticism.
+- **Putting a statement under the wrong actor:** the "subjective rules" criticism in the FASB note.
 - **Filler written from a "See also" list.**
 
 The numeric and word-overlap checks pass all of these. Reading the cited passage catches
