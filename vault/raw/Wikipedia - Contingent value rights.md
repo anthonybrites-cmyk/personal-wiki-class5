@@ -1,5 +1,5 @@
 ---
-converted_from: Contingent value rights.txt
+converted_from: Wikipedia - Contingent value rights.txt
 original_sha256: ed67c3845cb325fbba21170b9a2c5232b4055c71f0087a1a567d3bd87e832aa4
 original_encoding: utf-8
 original_line_endings: LF

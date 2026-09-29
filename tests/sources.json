@@ -1,6 +1,6 @@
 [
   {
-    "file": "raw/Contingent value rights.txt",
+    "file": "raw/Wikipedia - Contingent value rights.txt",
     "title": "Contingent value rights",
     "url": "https://en.wikipedia.org/wiki/Contingent_value_rights",
     "revision_id": 1369971399,
@@ -13,7 +13,7 @@
     "retrieved": "2026-09-28 via the MediaWiki API (prop=extracts, explaintext=1, exsectionformat=wiki)"
   },
   {
-    "file": "raw/FIFO and LIFO accounting.txt",
+    "file": "raw/Wikipedia - FIFO and LIFO accounting.txt",
     "title": "FIFO and LIFO accounting",
     "url": "https://en.wikipedia.org/wiki/FIFO_and_LIFO_accounting",
     "revision_id": 1324617022,
@@ -26,7 +26,7 @@
     "retrieved": "2026-09-28 via the MediaWiki API (prop=extracts, explaintext=1, exsectionformat=wiki)"
   },
   {
-    "file": "raw/Goodwill (accounting).txt",
+    "file": "raw/Wikipedia - Goodwill (accounting).txt",
     "title": "Goodwill (accounting)",
     "url": "https://en.wikipedia.org/wiki/Goodwill_(accounting)",
     "revision_id": 1367469269,

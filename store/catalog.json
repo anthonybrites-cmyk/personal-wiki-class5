@@ -1,147 +1,118 @@
 {
   "sources": {
-    "raw/Contingent value rights.md": {
+    "raw/Wikipedia - Contingent value rights.md": {
       "note": "wiki/Articles/Contingent Value Rights.md",
       "title": "Contingent Value Rights",
-      "sha256": "1491a17549882a5943ff05a47862dfae2ae09d896225c7e214a6d14cc3b05431",
-      "ingested_at": "2026-09-28T22:22:47",
+      "sha256": "2f085aac4d696e38f05db08059a8f9de847c2eb493f3399b037ffbf73396b6c7",
+      "ingested_at": "2026-09-28T22:27:07",
       "model": "mlx-community/gemma-4-e2b-it-4bit@2387675",
       "topics": [
         {
-          "title": "hedge funds",
-          "kind": "organization",
-          "why": "They occasionally acquire or short Contingent Value Rights"
-        },
-        {
-          "title": "biotech and pharmaceutical industries",
-          "kind": "organization",
-          "why": "Contingent Value Rights are common in these sectors"
-        },
-        {
-          "title": "Media General Nexstar Media Group",
-          "kind": "organization",
-          "why": "Used as an example of where CVRs are granted"
-        },
-        {
-          "title": "option",
+          "title": "Business Valuation",
           "kind": "concept",
-          "why": "The CVR is in function as a form of option"
+          "why": "CVRs bridge a gap in how buyer and seller value the target; they are valued with a modified option pricing model"
         },
         {
-          "title": "call option",
+          "title": "Option Pricing",
           "kind": "concept",
-          "why": "The payout to the CVR holder is triggered by an event occurring, and will be zero otherwise"
-        }
-      ],
-      "reviewed": false
-    },
-    "raw/FIFO and LIFO accounting.md": {
-      "note": "wiki/Articles/FIFO and LIFO Accounting.md",
-      "title": "FIFO and LIFO Accounting",
-      "sha256": "e350e05d1cb25cd15c25f29cf1b565691a077a2ee5f44e333698aa60f535caf9",
-      "ingested_at": "2026-09-28T22:22:47",
-      "model": "mlx-community/gemma-4-e2b-it-4bit@2387675",
-      "topics": [
-        {
-          "title": "Internal Revenue Code",
-          "kind": "organization",
-          "why": "Directs how LIFO may be used if the taxpayer establishes no other way to value inventory"
-        },
-        {
-          "title": "Save LIFO Coalition",
-          "kind": "organization",
-          "why": "Argues in favor of the retention of the LIFO method"
-        },
-        {
-          "title": "International Financial Reporting Standards",
-          "kind": "organization",
-          "why": "Banned the use of LIFO in certain contexts"
-        },
-        {
-          "title": "Cost of Goods Sold",
-          "kind": "concept",
-          "why": "Used to calculate the total cost of sales for a given period under different methods"
-        },
-        {
-          "title": "LIFO Reserve",
-          "kind": "concept",
-          "why": "Represents the difference between FIFO and LIFO inventory costs, deferring taxable income"
-        }
-      ],
-      "reviewed": false
-    },
-    "raw/Goodwill (accounting).md": {
-      "note": "wiki/Articles/Goodwill Accounting.md",
-      "title": "Goodwill Accounting",
-      "sha256": "dcee2e20d85c862f760c0c48aa252588b02ada6b4d9b27b003b4ccf7c84f9232",
-      "ingested_at": "2026-09-28T22:22:47",
-      "model": "mlx-community/gemma-4-e2b-it-4bit@2387675",
-      "topics": [
-        {
-          "title": "FASB",
-          "kind": "organization",
-          "why": "They removed the option to use pooling-of-interests method for goodwill amortization"
-        },
-        {
-          "title": "Private Company Council of the FASB",
-          "kind": "organization",
-          "why": "They established an accounting alternative for amortizing goodwill in private companies"
-        },
-        {
-          "title": "International Financial Reporting Standards",
-          "kind": "organization",
-          "why": "They forbid the amortization of goodwill as of 2005-01-01"
+          "why": "an event-driven CVR works like a call option, a price-protection CVR like a modified Asian option"
         },
         {
           "title": "Intangible Asset",
           "kind": "concept",
-          "why": "Goodwill is classified as an intangible asset on the balance sheet"
+          "why": "CVRs are common where value rests on uncertain intangible assets, as in biotech and pharma"
+        }
+      ],
+      "reviewed": true
+    },
+    "raw/Wikipedia - FIFO and LIFO accounting.md": {
+      "note": "wiki/Articles/FIFO and LIFO Accounting.md",
+      "title": "FIFO and LIFO Accounting",
+      "sha256": "c0c79478cb65d2e647ad0338538c72473bbf4c5d5abcaa56cf6874a1e1204845",
+      "ingested_at": "2026-09-28T22:27:07",
+      "model": "mlx-community/gemma-4-e2b-it-4bit@2387675",
+      "topics": [
+        {
+          "title": "Cost of Goods Sold",
+          "kind": "concept",
+          "why": "FIFO and LIFO give different COGS for the same sales: $11,050 vs $11,800 in the Foo Co. example"
+        },
+        {
+          "title": "LIFO Reserve",
+          "kind": "concept",
+          "why": "the FIFO–LIFO inventory difference, the amount of taxable income LIFO has deferred"
+        },
+        {
+          "title": "International Financial Reporting Standards",
+          "kind": "concept",
+          "why": "IFRS banned LIFO"
+        },
+        {
+          "title": "US GAAP",
+          "kind": "concept",
+          "why": "LIFO is used only in the United States, under GAAP"
+        },
+        {
+          "title": "Save LIFO Coalition",
+          "kind": "organization",
+          "why": "argues for keeping LIFO; says one third of American companies use it"
+        }
+      ],
+      "reviewed": true
+    },
+    "raw/Wikipedia - Goodwill (accounting).md": {
+      "note": "wiki/Articles/Goodwill Accounting.md",
+      "title": "Goodwill Accounting",
+      "sha256": "738dacf36b37ee6a7d657f105de1e000ea3c5d04636713ddd5038339d7177e4f",
+      "ingested_at": "2026-09-28T22:27:07",
+      "model": "mlx-community/gemma-4-e2b-it-4bit@2387675",
+      "topics": [
+        {
+          "title": "Intangible Asset",
+          "kind": "concept",
+          "why": "goodwill is classified as an intangible asset because it cannot be seen or touched"
         },
         {
           "title": "Acquisition Premium",
           "kind": "concept",
-          "why": "Goodwill represents the premium the buyer pays over the net value of other assets"
+          "why": "goodwill reflects the premium the buyer pays over the net value of the other assets"
         },
         {
           "title": "Impairment Testing",
           "kind": "concept",
-          "why": "Management must determine if an impairment is required when fair market value falls below historical cost"
+          "why": "goodwill is tested every year and written down, never up"
+        },
+        {
+          "title": "International Financial Reporting Standards",
+          "kind": "concept",
+          "why": "has forbidden goodwill amortization since 2005-01-01"
+        },
+        {
+          "title": "US GAAP",
+          "kind": "concept",
+          "why": "no amortization for public companies since FAS 142; pooling-of-interests ended by FAS 141"
+        },
+        {
+          "title": "Business Valuation",
+          "kind": "concept",
+          "why": "businesses are bought on estimated future cash flows, not the fair value of their assets, which is why goodwill exists"
+        },
+        {
+          "title": "FASB",
+          "kind": "organization",
+          "why": "removed goodwill amortization (FAS 142) as a concession after ending pooling-of-interests; its Private Company Council lets private companies amortize"
         }
       ],
-      "reviewed": false
+      "reviewed": true
     }
   },
   "topics": {
-    "hedge funds": {
-      "kind": "organization",
-      "aliases": []
-    },
-    "biotech and pharmaceutical industries": {
-      "kind": "organization",
-      "aliases": []
-    },
-    "Media General Nexstar Media Group": {
-      "kind": "organization",
-      "aliases": []
-    },
-    "option": {
-      "kind": "concept",
-      "aliases": []
-    },
-    "call option": {
-      "kind": "concept",
-      "aliases": []
-    },
-    "Internal Revenue Code": {
-      "kind": "organization",
-      "aliases": []
-    },
     "Save LIFO Coalition": {
       "kind": "organization",
       "aliases": []
     },
     "International Financial Reporting Standards": {
-      "kind": "organization",
+      "kind": "concept",
       "aliases": []
     },
     "Cost of Goods Sold": {
@@ -156,10 +127,6 @@
       "kind": "organization",
       "aliases": []
     },
-    "Private Company Council of the FASB": {
-      "kind": "organization",
-      "aliases": []
-    },
     "Intangible Asset": {
       "kind": "concept",
       "aliases": []
@@ -169,6 +136,18 @@
       "aliases": []
     },
     "Impairment Testing": {
+      "kind": "concept",
+      "aliases": []
+    },
+    "Business Valuation": {
+      "kind": "concept",
+      "aliases": []
+    },
+    "Option Pricing": {
+      "kind": "concept",
+      "aliases": []
+    },
+    "US GAAP": {
       "kind": "concept",
       "aliases": []
     }

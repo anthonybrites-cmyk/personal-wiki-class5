@@ -1,5 +1,5 @@
 ---
-converted_from: FIFO and LIFO accounting.txt
+converted_from: Wikipedia - FIFO and LIFO accounting.txt
 original_sha256: ac7fa7f082deb49a7e08592b486d358a6215facebf4b37272c126f10acf6eec3
 original_encoding: utf-8
 original_line_endings: LF

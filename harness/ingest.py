@@ -543,7 +543,8 @@ class Ingestor:
             entry.update({"topics": topics, "reviewed": True, "title": note.title,
                           "note": str(note.path.relative_to(config.VAULT))})
             for t in topics:
-                self.catalog["topics"].setdefault(t["title"], {"kind": t["kind"], "aliases": []})
+                # A reviewer's choice of concept vs organization wins over Gemma's.
+                self.catalog["topics"].setdefault(t["title"], {"aliases": []})["kind"] = t["kind"]
 
     # --- run --------------------------------------------------------------------------------
     def run(self, targets: list[Path]) -> dict:

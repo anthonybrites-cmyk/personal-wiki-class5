@@ -6,34 +6,30 @@ A study wiki on accounting for inventory and acquisitions, built from three Wiki
 
 *One note per source article: what it explains.*
 
-- [[Contingent Value Rights]] — Covers rights granted by an acquirer to shareholders to manage transaction uncertainty
-- [[FIFO and LIFO Accounting]] — Covers FIFO and LIFO methods for inventory management and financial reporting assumptions
-- [[Goodwill Accounting]] — This document covers the recognition, calculation, and treatment of goodwill as an intangible asset
+- [[Contingent Value Rights]] — Rights an acquirer grants target shareholders to bridge uncertainty in a deal, and how they are valued
+- [[FIFO and LIFO Accounting]] — The two main inventory cost-flow assumptions, their effect on profit and tax, and where each is allowed
+- [[Goodwill Accounting]] — What goodwill is, how it is calculated in an acquisition, and why it is impaired rather than amortized
 
 ## Concepts
 
 *Ideas and methods that show up across the articles.*
 
-- [[Acquisition Premium]] — Acquisition premium is the premium the buyer pays over the net value of its other assets, which is recognized as goodwill in accounting.
-- [[call option]] — Contingent value rights (CVRs) are a form of option.
-- [[Cost of Goods Sold]] — Cost of Goods Sold (COGS) is related to inventory costing methods like FIFO and LIFO.
-- [[Impairment Testing]] — Impairment testing involves determining the fair value of reporting units and comparing it to the carrying value; if the fair value is less…
-- [[Intangible Asset]] — Intangible assets are assets that are not tangible.
-- [[LIFO Reserve]] — The LIFO reserve is the difference between the cost of inventory calculated under the FIFO and LIFO methods.
-- [[option]] — Option is in function as a form of contingent value rights.
+- [[Acquisition Premium]] — The amount a buyer pays above the net value of a target's assets, recorded as goodwill
+- [[Business Valuation]] — Why a buyer's price differs from the target's asset values, and how uncertain value is priced
+- [[Cost of Goods Sold]] — The cost of inventory expensed when goods are sold; FIFO and LIFO give different amounts
+- [[Impairment Testing]] — Annual test that writes goodwill down to fair value when it falls, never up
+- [[Intangible Asset]] — Assets without physical form, such as goodwill; hard to value, which is where CVRs are common
+- [[International Financial Reporting Standards]] — The international accounting standards; they ban LIFO and goodwill amortization
+- [[LIFO Reserve]] — The FIFO–LIFO inventory difference: taxable income deferred by using LIFO
+- [[Option Pricing]] — How CVRs are valued: a modified option model on event probability, horizon, and payout
+- [[US GAAP]] — US generally accepted accounting principles: where LIFO survives and goodwill is impaired, not amortized
 
 ## Organizations
 
 *Standard setters, agencies, and companies in the material.*
 
-- [[biotech and pharmaceutical industries]] — The biotech and pharmaceutical industries utilize contingent value rights (CVRs), which help bridge negotiations by allowing shareholders…
-- [[FASB]] — FASB is the body that issues accounting standards, as shown by the fact that it issued FAS 142, which removed amortization of goodwill…
-- [[hedge funds]] — Hedge funds are specialized entities that may acquire or short Contingent Value Rights (CVRs).
-- [[Internal Revenue Code]] — The Internal Revenue Code directs how LIFO may be used if necessary, stating that LIFO may only be used if the taxpayer establishes that…
-- [[International Financial Reporting Standards]] — International Financial Reporting Standards (IFRS) are mentioned in relation to banning the LIFO method.
-- [[Media General Nexstar Media Group]] — Media General/Nexstar Media Group is an example of a situation where contingent value rights (CVRs) are used, as they help bridge…
-- [[Private Company Council of the FASB]] — The Private Company Council of the FASB allows private companies in the United States to elect to amortize goodwill over a period of ten…
-- [[Save LIFO Coalition]] — The Save LIFO Coalition argues in favor of retaining the LIFO method.
+- [[FASB]] — Financial Accounting Standards Board: ended goodwill amortization; lets private companies opt back in
+- [[Save LIFO Coalition]] — Group that argues for keeping the LIFO method
 
 ## Sources
 

@@ -1,5 +1,5 @@
 ---
-converted_from: Goodwill (accounting).txt
+converted_from: Wikipedia - Goodwill (accounting).txt
 original_sha256: fa60da3ade7163f800887e0c1d8c741cdc5af0c7c0810f59725a6d7a1e89aa13
 original_encoding: utf-8
 original_line_endings: LF

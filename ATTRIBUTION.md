@@ -8,9 +8,9 @@ table and the Goodwill article's formatting are not in the extract.
 
 | Article | Revision used | Authors | File |
 |---|---|---|---|
-| [Contingent value rights](https://en.wikipedia.org/wiki/Contingent_value_rights) | [1369971399](https://en.wikipedia.org/w/index.php?oldid=1369971399) (2026-08-18) | [page history (authors)](https://en.wikipedia.org/w/index.php?title=Contingent_value_rights&action=history) | `raw/Contingent value rights.txt` |
-| [FIFO and LIFO accounting](https://en.wikipedia.org/wiki/FIFO_and_LIFO_accounting) | [1324617022](https://en.wikipedia.org/w/index.php?oldid=1324617022) (2025-11-28) | [page history (authors)](https://en.wikipedia.org/w/index.php?title=FIFO_and_LIFO_accounting&action=history) | `raw/FIFO and LIFO accounting.txt` |
-| [Goodwill (accounting)](https://en.wikipedia.org/wiki/Goodwill_(accounting)) | [1367469269](https://en.wikipedia.org/w/index.php?oldid=1367469269) (2026-08-03) | [page history (authors)](https://en.wikipedia.org/w/index.php?title=Goodwill_(accounting)&action=history) | `raw/Goodwill (accounting).txt` |
+| [Contingent value rights](https://en.wikipedia.org/wiki/Contingent_value_rights) | [1369971399](https://en.wikipedia.org/w/index.php?oldid=1369971399) (2026-08-18) | [page history (authors)](https://en.wikipedia.org/w/index.php?title=Contingent_value_rights&action=history) | `raw/Wikipedia - Contingent value rights.txt` |
+| [FIFO and LIFO accounting](https://en.wikipedia.org/wiki/FIFO_and_LIFO_accounting) | [1324617022](https://en.wikipedia.org/w/index.php?oldid=1324617022) (2025-11-28) | [page history (authors)](https://en.wikipedia.org/w/index.php?title=FIFO_and_LIFO_accounting&action=history) | `raw/Wikipedia - FIFO and LIFO accounting.txt` |
+| [Goodwill (accounting)](https://en.wikipedia.org/wiki/Goodwill_(accounting)) | [1367469269](https://en.wikipedia.org/w/index.php?oldid=1367469269) (2026-08-03) | [page history (authors)](https://en.wikipedia.org/w/index.php?title=Goodwill_(accounting)&action=history) | `raw/Wikipedia - Goodwill (accounting).txt` |
 
 Wikipedia text is licensed under the
 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)

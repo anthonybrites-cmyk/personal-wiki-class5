@@ -1,0 +1,320 @@
+{
+  "saved_at": "2026-09-28T22:27:33",
+  "mode": "ingest",
+  "execution": "local",
+  "seconds": 25.99,
+  "model_load_s": 3.37,
+  "results": [
+    {
+      "source": "raw/Wikipedia - Contingent value rights.md",
+      "status": "kept-reviewed",
+      "note": "wiki/Articles/Contingent Value Rights.md",
+      "kept_facts": [
+        {
+          "fact": "Event-driven CVRs compensate owners for positive developments in their business.",
+          "claimed_section": "Forms",
+          "found_section": "Forms",
+          "lines": [
+            16,
+            20
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "Price-protection CVRs are granted when payment is share based.",
+          "claimed_section": "Forms",
+          "found_section": "Forms",
+          "lines": [
+            16,
+            20
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "CVRs are common in the biotech and pharmaceutical industries.",
+          "claimed_section": "Forms",
+          "found_section": "Forms",
+          "lines": [
+            22,
+            24
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "The payout to the CVR holder will be triggered by the event occurring and will be zero otherwise.",
+          "claimed_section": "Valuation",
+          "found_section": "Valuation",
+          "lines": [
+            28,
+            34
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "Analysts apply a modified option pricing model based on the probability of the event, time horizon, and payout rules.",
+          "claimed_section": "Valuation",
+          "found_section": "Valuation",
+          "lines": [
+            28,
+            34
+          ],
+          "check": "100% word overlap"
+        }
+      ],
+      "dropped": [
+        {
+          "topic": "FASB",
+          "check": "the source never names it"
+        }
+      ],
+      "topics": [
+        {
+          "title": "hedge funds",
+          "kind": "organization",
+          "why": "They occasionally acquire or short Contingent Value Rights securities"
+        },
+        {
+          "title": "Media General Nexstar Media Group",
+          "kind": "organization",
+          "why": "Used as an example of where CVRs are common in the biotech and pharmaceutical industries"
+        },
+        {
+          "title": "Option",
+          "kind": "concept",
+          "why": "The CVR is in function as a form of option"
+        },
+        {
+          "title": "Call option",
+          "kind": "concept",
+          "why": "The first case of CVRs is analogous to a call option"
+        },
+        {
+          "title": "Asian option",
+          "kind": "concept",
+          "why": "The second type of CVR takes the form of a modified Asian option"
+        }
+      ],
+      "stats": {
+        "prompt_tokens": 1381,
+        "generated_tokens": 334,
+        "prompt_tps": 1497.381,
+        "generation_tps": 64.821,
+        "peak_memory_gb": 4.34,
+        "seconds": 6.377,
+        "finish_reason": "stop"
+      },
+      "raw_output": "TITLE: Contingent Value Rights\nALIASES:\nDESCRIPTION: Covers rights granted by an acquirer to shareholders to manage transaction uncertainty.\nSUMMARY: Contingent Value Rights are rights granted by an acquirer to shareholders to facilitate transactions with inherent uncertainty. These rights can be event-driven or price-protection based, and they help bridge negotiations. Shareholders receive additional compensation if a specific event occurs within a timeframe.\nORG: hedge funds || WHY: They occasionally acquire or short Contingent Value Rights securities.\nORG: Media General / Nexstar Media Group || WHY: Used as an example of where CVRs are common in the biotech and pharmaceutical industries.\nORG: FASB || WHY: Mentioned in relation to the valuation of intangible assets.\nCONCEPT: Option\nWHY: The CVR is in function as a form of option.\nCONCEPT: Call option\nWHY: The first case of CVRs is analogous to a call option.\nCONCEPT: Asian option\nWHY: The second type of CVR takes the form of a modified Asian option.\nFACT: Event-driven CVRs compensate owners for positive developments in their business. || SECTION: Forms\nFACT: Price-protection CVRs are granted when payment is share based. || SECTION: Forms\nFACT: CVRs are common in the biotech and pharmaceutical industries. || SECTION: Forms\nFACT: The payout to the CVR holder will be triggered by the event occurring and will be zero otherwise. || SECTION: Valuation\nFACT: Analysts apply a modified option pricing model based on the probability of the event, time horizon, and payout rules. || SECTION: Valuation"
+    },
+    {
+      "source": "raw/Wikipedia - FIFO and LIFO accounting.md",
+      "status": "kept-reviewed",
+      "note": "wiki/Articles/FIFO and LIFO Accounting.md",
+      "kept_facts": [
+        {
+          "fact": "If Foo Co. sells 210 units during November, the total cost of sales under FIFO would be $11,050.",
+          "claimed_section": "FIFO",
+          "found_section": "FIFO",
+          "lines": [
+            20,
+            26
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "Under FIFO, the total cost of sales for November would be $11,050.",
+          "claimed_section": "FIFO",
+          "found_section": "FIFO",
+          "lines": [
+            20,
+            26
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "The ending inventory under FIFO would be calculated at $5250.",
+          "claimed_section": "FIFO",
+          "found_section": "FIFO",
+          "lines": [
+            20,
+            26
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "Under LIFO, the total cost of sales for November would be $11,800.",
+          "claimed_section": "LIFO",
+          "found_section": "LIFO",
+          "lines": [
+            38,
+            44
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "The balance sheet would show $4500 in inventory under LIFO.",
+          "claimed_section": "LIFO",
+          "found_section": "LIFO",
+          "lines": [
+            38,
+            44
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "The difference between the cost of an inventory calculated under the FIFO and LIFO methods is called the LIFO reserve.",
+          "claimed_section": "LIFO",
+          "found_section": "LIFO",
+          "lines": [
+            38,
+            44
+          ],
+          "check": "100% word overlap"
+        }
+      ],
+      "dropped": [],
+      "topics": [
+        {
+          "title": "Internal Revenue Code",
+          "kind": "organization",
+          "why": "Directs how LIFO may be used if the taxpayer establishes no other way to value inventory"
+        },
+        {
+          "title": "Save LIFO Coalition",
+          "kind": "organization",
+          "why": "Argues in favor of the retention of the LIFO method"
+        },
+        {
+          "title": "International Financial Reporting Standards",
+          "kind": "concept",
+          "why": "Valuation principles are subordinated to the lower of cost or market valuation"
+        },
+        {
+          "title": "FIFO",
+          "kind": "concept",
+          "why": "Mimics the flow of inventory by selling the oldest inventory first"
+        },
+        {
+          "title": "LIFO",
+          "kind": "concept",
+          "why": "Records the most recently purchased items as sold first"
+        },
+        {
+          "title": "LIFO Reserve",
+          "kind": "concept",
+          "why": "Is the difference between FIFO and LIFO inventory cost calculations"
+        }
+      ],
+      "stats": {
+        "prompt_tokens": 1832,
+        "generated_tokens": 387,
+        "prompt_tps": 1726.704,
+        "generation_tps": 64.279,
+        "peak_memory_gb": 4.381,
+        "seconds": 7.096,
+        "finish_reason": "stop"
+      },
+      "raw_output": "TITLE: FIFO and LIFO Accounting\nALIASES:\nDESCRIPTION: Covers FIFO and LIFO methods for inventory management and financial reporting assumptions.\nSUMMARY: The document discusses FIFO and LIFO methods for inventory and financial matters. It explains how FIFO records the oldest inventory first, and LIFO records the most recently purchased items first. The conclusion notes that the difference between the two methods is called the LIFO reserve.\nORG: Internal Revenue Code || WHY: Directs how LIFO may be used if the taxpayer establishes no other way to value inventory.\nORG: Save LIFO Coalition || WHY: Argues in favor of the retention of the LIFO method.\nORG: International Financial Reporting Standards || WHY: Valuation principles are subordinated to the lower of cost or market valuation.\nCONCEPT: FIFO\nWHY: Mimics the flow of inventory by selling the oldest inventory first.\nCONCEPT: LIFO\nWHY: Records the most recently purchased items as sold first.\nCONCEPT: LIFO Reserve\nWHY: Is the difference between FIFO and LIFO inventory cost calculations.\nFACT: If Foo Co. sells 210 units during November, the total cost of sales under FIFO would be $11,050. || SECTION: FIFO\nFACT: Under FIFO, the total cost of sales for November would be $11,050. || SECTION: FIFO\nFACT: The ending inventory under FIFO would be calculated at $5250. || SECTION: FIFO\nFACT: Under LIFO, the total cost of sales for November would be $11,800. || SECTION: LIFO\nFACT: The balance sheet would show $4500 in inventory under LIFO. || SECTION: LIFO\nFACT: The difference between the cost of an inventory calculated under the FIFO and LIFO methods is called the LIFO reserve. || SECTION: LIFO"
+    },
+    {
+      "source": "raw/Wikipedia - Goodwill (accounting).md",
+      "status": "kept-reviewed",
+      "note": "wiki/Articles/Goodwill Accounting.md",
+      "kept_facts": [
+        {
+          "fact": "Goodwill is recognized when a firm is purchased as a going concern.",
+          "claimed_section": "Goodwill (accounting)",
+          "found_section": "Goodwill (accounting)",
+          "lines": [
+            12,
+            12
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "To calculate goodwill, the fair market value of acquired assets and liabilities is deducted from the purchase price.",
+          "claimed_section": "Calculating goodwill",
+          "found_section": "Calculating goodwill",
+          "lines": [
+            22,
+            42
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "If company A acquired company B and paid $20, goodwill would be $11 ($20 - $9).",
+          "claimed_section": "Calculating goodwill",
+          "found_section": "Calculating goodwill",
+          "lines": [
+            22,
+            42
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "Goodwill is considered to have an indefinite useful life under U.S. GAAP and IFRS for public companies.",
+          "claimed_section": "Goodwill (accounting)",
+          "found_section": "Goodwill (accounting)",
+          "lines": [
+            14,
+            14
+          ],
+          "check": "100% word overlap"
+        },
+        {
+          "fact": "Goodwill can only be impaired under current GAAP standards.",
+          "claimed_section": "Amortization and adjustments to carrying value",
+          "found_section": "Amortization and adjustments to carrying value",
+          "lines": [
+            64,
+            64
+          ],
+          "check": "80% word overlap"
+        }
+      ],
+      "dropped": [],
+      "topics": [
+        {
+          "title": "FASB",
+          "kind": "organization",
+          "why": "They removed the option to use the pooling-of-interests method for recording business combinations"
+        },
+        {
+          "title": "Private Company Council of the FASB",
+          "kind": "organization",
+          "why": "They established an accounting alternative for amortizing goodwill for private companies"
+        },
+        {
+          "title": "Accounting Standards Board",
+          "kind": "organization",
+          "why": "They are involved in setting rules that are subject to change regarding goodwill accounting treatment"
+        },
+        {
+          "title": "Intangible Asset",
+          "kind": "concept",
+          "why": "Goodwill is classified as an intangible asset on the balance sheet"
+        },
+        {
+          "title": "Acquisition Premium",
+          "kind": "concept",
+          "why": "Goodwill reflects the premium the buyer pays over the net value of other assets"
+        },
+        {
+          "title": "Impairment Testing",
+          "kind": "concept",
+          "why": "Management is responsible for determining if an impairment is required for goodwill"
+        }
+      ],
+      "stats": {
+        "prompt_tokens": 2512,
+        "generated_tokens": 357,
+        "prompt_tps": 1690.32,
+        "generation_tps": 63.365,
+        "peak_memory_gb": 4.381,
+        "seconds": 7.136,
+        "finish_reason": "stop"
+      },
+      "raw_output": "TITLE: Goodwill Accounting\nALIASES:\nDESCRIPTION: This document covers the recognition, calculation, and treatment of goodwill as an intangible asset.\nSUMMARY: The document addresses how goodwill is recognized when a firm is purchased, detailing the calculation method and its classification as an intangible asset. The conclusion is that goodwill is subject to impairment testing under certain accounting standards.\nORG: FASB || WHY: They removed the option to use the pooling-of-interests method for recording business combinations.\nORG: Private Company Council of the FASB || WHY: They established an accounting alternative for amortizing goodwill for private companies.\nORG: Accounting Standards Board || WHY: They are involved in setting rules that are subject to change regarding goodwill accounting treatment.\nCONCEPT: Intangible Asset || WHY: Goodwill is classified as an intangible asset on the balance sheet.\nCONCEPT: Acquisition Premium || WHY: Goodwill reflects the premium the buyer pays over the net value of other assets.\nCONCEPT: Impairment Testing || WHY: Management is responsible for determining if an impairment is required for goodwill.\nFACT: Goodwill is recognized when a firm is purchased as a going concern. || SECTION: Goodwill (accounting)\nFACT: To calculate goodwill, the fair market value of acquired assets and liabilities is deducted from the purchase price. || SECTION: Calculating goodwill\nFACT: If company A acquired company B and paid $20, goodwill would be $11 ($20 - $9). || SECTION: Calculating goodwill\nFACT: Goodwill is considered to have an indefinite useful life under U.S. GAAP and IFRS for public companies. || SECTION: Goodwill (accounting)\nFACT: Goodwill can only be impaired under current GAAP standards. || SECTION: Amortization and adjustments to carrying value"
+    }
+  ],
+  "topics": []
+}
