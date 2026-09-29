@@ -48,6 +48,8 @@ def sha256_file(path: Path) -> str:
 
 def list_text_files(root: Path) -> list[Path]:
     if root.is_file():
+        if root.suffix.lower() == ".txt" and root.with_suffix(".md").exists():
+            return [root.with_suffix(".md")]  # a converted original: use its Markdown twin
         return [root] if root.suffix.lower() in TEXT_SUFFIXES else []
     files = [p for p in root.rglob("*")
              if p.is_file() and p.suffix.lower() in TEXT_SUFFIXES and not p.name.startswith(".")]
