@@ -69,7 +69,11 @@ def render(res: AskResult, show_passages: bool = True) -> str:
                        + ui.dim(f"rrf={h.score:.4f} bm25={h.bm25:.1f} cos={h.vector:.2f}"))
     out.append("")
     r = res.report
-    if r.status == "insufficient":
+    if r.status == "insufficient" and not r.insufficient:
+        out.append(ui.yellow(ui.bold("Answer: ")) + "INSUFFICIENT EVIDENCE — the retrieved notes do "
+                   "not answer this question.")
+        out.append(ui.dim("  (Gemma's reply, rejected by the harness: ") + r.answer + ui.dim(")"))
+    elif r.status == "insufficient":
         out.append(ui.yellow(ui.bold("Answer: ")) + r.answer)
     else:
         out.append(ui.bold("Answer: ") + r.answer)
@@ -78,6 +82,7 @@ def render(res: AskResult, show_passages: bool = True) -> str:
     if cited_hits:
         out.append("")
         out.append(ui.bold("Passages quoted while deciding (no answer found)" if r.insufficient
+                           else "Passages cited by the rejected reply" if r.status == "insufficient"
                            else "Citations"))
         for h in cited_hits:
             out.append(f"  {ui.cyan('[' + h.label + ']')} {h.passage.location}")

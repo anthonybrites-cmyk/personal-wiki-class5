@@ -78,6 +78,28 @@ def parse_answer(raw: str) -> tuple[str, list[tuple[str, str]]]:
     return answer, quotes
 
 
+VALUE_QUESTION = re.compile(
+    r"\b(how (many|much|long|often)|when\b|what (year|date|rate|percentage|percent|number|"
+    r"amount|price|cost|total|discount rate|interest rate)|which year)", re.I)
+
+
+def acronyms_in(text: str) -> set[str]:
+    """Initials of capitalized phrases, so 'International Financial Reporting Standards'
+    counts as a mention of IFRS."""
+    out = set()
+    words = re.findall(r"[A-Za-z][\w'-]*", text)
+    for i in range(len(words)):
+        run = []
+        for w in words[i:i + 6]:
+            if w[0].isupper():
+                run.append(w[0])
+                if len(run) >= 2:
+                    out.add("".join(run).upper())
+            elif w.lower() not in {"of", "and", "for", "the"}:
+                break
+    return out
+
+
 def identifiers(question: str) -> list[str]:
     """ALL-CAPS names and codes in a question (IFRS, FASB, CVR, FAS-142), not ordinary words."""
     return list(dict.fromkeys(t for t in re.findall(r"\b[A-Z][A-Z0-9]{2,}(?:-[A-Z0-9]+)*\b", question)))
@@ -114,10 +136,19 @@ def check(raw: str, hits: list[Hit], question: str = "") -> CitationReport:
     # true statement about a *different* trial or product.
     cited_text = " ".join(by_label[l].passage.text for l in
                           set(cited) | {q["label"] for q in report.quotes} if l in by_label)
+    spelled_out = acronyms_in(cited_text)
     for term in identifiers(question):
-        if term.lower() not in cited_text.lower():
+        if term.lower() not in cited_text.lower() and term.upper() not in spelled_out:
             report.notes.append(f"the question names {term}, but no cited passage mentions it: "
                                 "the answer may be about something else")
+
+    # A question that asks for a specific value ("what rate", "how many", "when") is not
+    # answered by a reply with no number or date in it, however well cited.
+    if VALUE_QUESTION.search(question) and not re.search(r"\d", LABEL.sub("", answer)):
+        report.notes.append("the question asks for a specific value, but the answer gives none: "
+                            "reporting insufficient evidence (Gemma's reply kept)")
+        report.status = "insufficient"
+        return report
 
     # A citation is either an inline [S#] in the answer or a labelled evidence quote.
     labels = list(dict.fromkeys(cited + [q["label"] for q in report.quotes]))

@@ -103,3 +103,4 @@ def concept_messages(concept: str, hits: list[Hit]) -> list[dict]:
     return [{"role": "system", "content": "You write short, accurate wiki summaries from "
              "the passages you are given. No outside knowledge, no speculation."},
             {"role": "user", "content": user}]
+

@@ -64,7 +64,7 @@ banner "4. Conversion and ingestion with local Gemma"
 show "./wiki convert --force   # .txt originals -> Markdown, word sequence verified, originals untouched"
 ./wiki convert --force
 show "shasum -a 256 vault/raw/*.txt   # compare with tests/original-txt-sha256.txt"
-shasum -a 256 vault/raw/*.txt | sed 's|vault/raw/||' | diff - tests/original-txt-sha256.txt && echo "originals unchanged: all 3 hashes match the ones recorded before processing"
+shasum -a 256 vault/raw/*.txt | diff - tests/original-txt-sha256.txt && echo "originals unchanged: all 3 hashes match the ones recorded before processing"
 show ".venv/bin/python scripts/reingest_check.py $OUT/reingest-check.md vault/raw   # runs ./wiki ingest vault/raw --force under /usr/bin/time"
 MEAS_FILE="$MEAS" .venv/bin/python scripts/reingest_check.py "$(dirname "$WIKI_RUNS_DIR")/reingest-check.md" vault/raw
 

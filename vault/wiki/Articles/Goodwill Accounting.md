@@ -21,7 +21,7 @@ ingested_at: '2026-09-28T22:22:47'
 reviewed: true
 reviewed_at: '2026-09-28'
 review_log: evidence/wiki-review.md
-last_checked: '2026-09-28T22:27:07'
+last_checked: '2026-09-28T22:28:30'
 checked_by: mlx-community/gemma-4-e2b-it-4bit@2387675
 ---
 
