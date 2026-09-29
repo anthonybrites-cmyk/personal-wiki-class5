@@ -1,0 +1,24 @@
+{
+  "note": "Answer key for the four ask-mode tests. Lives outside vault/ so the retrieval index never sees it. Human-readable version: ask-tests.md.",
+  "tests": [
+    {"id": "test-1", "kind": "direct, one source",
+     "question": "In the Foo Co. example, what was the total cost of sales for November under FIFO?",
+     "expected_sources": ["raw/FIFO and LIFO accounting.md"],
+     "expected_text": ["Under FIFO, the total cost of sales for November would be $11,050"],
+     "expected_answer": "$11,050", "answerable": true},
+    {"id": "test-2", "kind": "reworded, one source",
+     "question": "Can a company count the customer loyalty it built up by itself as something it owns on its books?",
+     "expected_sources": ["raw/Goodwill (accounting).md"],
+     "expected_text": ["it cannot be self-created", "such expenses cannot be capitalized and added to goodwill"],
+     "expected_answer": "No: goodwill is recognized only through an acquisition and cannot be self-created; reputation-building spending cannot be capitalized as goodwill", "answerable": true},
+    {"id": "test-3", "kind": "connects two sources",
+     "question": "What does goodwill represent in an acquisition, and which kind of contingent value right protects the buyer against overpaying?",
+     "expected_sources": ["raw/Goodwill (accounting).md", "raw/Contingent value rights.md"],
+     "expected_text": ["It reflects the premium the buyer pays over the net value of its other assets", "is deducted from the purchase price", "protecting the acquirer against the valuation risk inherent in overpaying"],
+     "expected_answer": "Goodwill: the premium paid over the net (fair) value of the target's identifiable assets and liabilities; event-driven CVRs protect the acquirer against overpaying", "answerable": true},
+    {"id": "test-4", "kind": "not answerable",
+     "question": "What discount rate must companies use when testing goodwill for impairment?",
+     "expected_sources": [], "expected_text": [],
+     "expected_answer": "insufficient evidence (only 'present value of future cash flow' is mentioned, no rate)", "answerable": false}
+  ]
+}
